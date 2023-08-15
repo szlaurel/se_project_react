@@ -1,0 +1,21 @@
+.item-card__section {
+  margin-top: 20px;
+}
+
+.item-card__image {
+  width: 325px;
+  height: 328px;
+  border-radius: 10px;
+}
+
+.item-card__name {
+  text-align: center;
+}
+
+.item-card__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
