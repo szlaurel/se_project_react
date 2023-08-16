@@ -1,4 +1,5 @@
 import "./WeatherCard.css";
+import weatherApi from "../utils/weatherApi";
 
 const weatherOptions = [
   {
@@ -26,7 +27,7 @@ const weatherOptions = [
 const WeatherCard = ({ day, type, weatherTemp = "" }) => {
   console.log("weathercard");
   const imageSrc = weatherOptions.filter((i) => {
-    console.log(i);
+    // console.log(i);
     return i.day === day && i.type === type;
   });
   console.log(imageSrc);
@@ -35,7 +36,7 @@ const WeatherCard = ({ day, type, weatherTemp = "" }) => {
   const imageSrcUrl = imageSrc[0].url || "";
   return (
     <section className="weather" id="weather">
-      <div className="weather_info">{weatherTemp}</div>
+      <div className="weather_info">{weatherTemp}°F</div>
       <div>
         <img src={imageSrcUrl} className="weather_image" />
       </div>
