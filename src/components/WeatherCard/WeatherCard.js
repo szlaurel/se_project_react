@@ -1,5 +1,7 @@
 import "./WeatherCard.css";
 import weatherApi from "../../utils/weatherApi";
+import React from "react";
+// import fog from '../../images/day/'
 
 const weatherOptions = [
   {
@@ -8,7 +10,7 @@ const weatherOptions = [
     type: "sunny",
   },
   {
-    url: require("../../images/day/cloudy.svg").default,
+    url: require("../../images/day/storm.svg").default,
     day: true,
     type: "cloudy",
   },
@@ -27,7 +29,7 @@ const weatherOptions = [
 const WeatherCard = ({ day, type, weatherTemp = "" }) => {
   console.log("weathercard");
   const imageSrc = weatherOptions.filter((i) => {
-    // console.log(i);
+    console.log(i);
     return i.day === day && i.type === type;
   });
   console.log(imageSrc);
@@ -38,7 +40,7 @@ const WeatherCard = ({ day, type, weatherTemp = "" }) => {
     <section className="weather" id="weather">
       <div className="weather_info">{weatherTemp}°F</div>
       <div>
-        <img src={imageSrcUrl} className="weather_image" />
+        <img src={imageSrcUrl} className="weather_image" alt={imageSrcUrl} />
       </div>
     </section>
   );

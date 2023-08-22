@@ -13,6 +13,7 @@ import {
   parseWeatherData,
   parseWeatherLocation,
 } from "../../utils/weatherApi";
+import React from "react";
 
 function App() {
   const weatherTemp = "75°F";

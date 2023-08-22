@@ -1,4 +1,6 @@
 import "./Header.css";
+import React from "react";
+import logo from "../../images/Logo.svg";
 
 const Header = ({ onCreateModal }) => {
   console.log("Header");
@@ -6,7 +8,7 @@ const Header = ({ onCreateModal }) => {
     <header className="header">
       <div className="header__logo">
         <div>
-          <img src={require("../../images/Logo.svg").default} alt="logo" />
+          <img src={logo} alt="logo" />
         </div>
         <div>Date and location</div>
       </div>
