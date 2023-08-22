@@ -8,7 +8,11 @@ import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal";
-import { getForecastWeather, parseWeatherData } from "../utils/weatherApi";
+import {
+  getForecastWeather,
+  parseWeatherData,
+  parseWeatherLocation,
+} from "../utils/weatherApi";
 
 function App() {
   const weatherTemp = "75°F";
@@ -46,14 +50,26 @@ function App() {
       <Footer />
       {activeModal === "create" && (
         <ModalWithForm title="New Garment" onClose={handleCloseModal}>
-          <label>
-            Name
-            <input name="name" type="text" minLength="1" maxLength="30" />
-          </label>
-          <label>
-            Image
-            <input name="link" type="url" minLength="1" maxLength="30" />
-          </label>
+          <label className="modal__label">Name</label>
+          <input
+            name="name"
+            type="text"
+            minLength="1"
+            maxLength="30"
+            placeholder="Name"
+            className="modal__input"
+          />
+          {/* <span className="modal__span">Please enter a Name</span> */}
+          <label className="modal__label">Image</label>
+          <input
+            name="link"
+            type="url"
+            minLength="1"
+            maxLength="30"
+            placeholder="Image URL"
+            className="modal__input"
+          />
+          {/* <span className="modal__span">Please enter a valid URL</span> */}
           <p>Select the weather type:</p>
           <div>
             <div>

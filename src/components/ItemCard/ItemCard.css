@@ -10,6 +10,9 @@
 
 .item-card__name {
   text-align: center;
+  font-family: "CabinetGrotesk-Bold", arial, sans-serif;
+  font-weight: 700;
+  font-size: 20px;
 }
 
 .item-card__items {

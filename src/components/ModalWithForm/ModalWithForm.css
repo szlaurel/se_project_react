@@ -16,4 +16,80 @@
   width: 100%;
   border-radius: 20px;
   padding: 34px 36px;
+  font-family: "CabinetGrotesk-Medium", arial, sans-serif;
+  position: relative;
+}
+
+.modal__close {
+  position: absolute;
+  background: url("../../images/newclosebutton.svg");
+  background-color: transparent;
+  background-size: contain;
+  bottom: calc(90% + 5%);
+  left: calc(90% + 5%);
+  width: 20px;
+  height: 20px;
+  border: none;
+}
+
+.modal__close[id="close-garment-modal"] {
+  position: absolute;
+  background: url("../../images/newclosebutton.svg");
+  background-color: transparent;
+  background-size: contain;
+  bottom: calc(83% + 5%);
+  left: calc(85% + 5%);
+  width: 20px;
+  height: 20px;
+  border: none;
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.modal__label {
+  margin-bottom: 8px;
+}
+
+.modal__input {
+  border-top: 0;
+  border-right: 0;
+  border-left: 0;
+  padding-left: 0px;
+  margin-bottom: 24px;
+}
+/* uncomment this VVVV when you need to add the style needed to the span tags*/
+
+/* .modal__span {
+  color: red;
+} */
+
+.modal__title {
+  margin-bottom: 24px;
+}
+
+.modal__button {
+  margin-top: 32px;
+  padding-top: 8px;
+  padding-right: 16px;
+  padding-bottom: 8px;
+  padding-left: 16px;
+  border-radius: 4px;
+  background-color: black;
+  font-family: "CabinetGrotesk-Medium", arial, sans-serif;
+  color: white;
+  border: none;
+  transition: ease-in-out 0.5s;
+  cursor: pointer;
+}
+
+.modal__button:hover {
+  opacity: 0.6;
+}
+
+.modal__button:disabled {
+  opacity: 0.3;
 }

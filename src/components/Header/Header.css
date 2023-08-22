@@ -4,6 +4,9 @@
   align-items: center;
   min-height: 60px;
   padding: 0 20px;
+  font-family: "CabinetGrotesk-Medium", arial, sans-serif;
+  font-weight: 700;
+  font-size: 20px;
 }
 
 .header__logo {
@@ -16,4 +19,13 @@
   display: flex;
   gap: 20px;
   align-items: center;
+}
+
+.header__button {
+  font-family: "CabinetGrotesk-Medium", arial, sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  border: 0;
+  padding: 0px 0px 0px 0px;
+  background-color: transparent;
 }
