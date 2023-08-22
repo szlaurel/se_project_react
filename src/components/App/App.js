@@ -12,7 +12,7 @@ import {
   getForecastWeather,
   parseWeatherData,
   parseWeatherLocation,
-} from "../utils/weatherApi";
+} from "../../utils/weatherApi";
 
 function App() {
   const weatherTemp = "75°F";
