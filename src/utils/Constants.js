@@ -1,3 +1,7 @@
+/* -------------------------------------------------------------------------- */
+/*                             Exports for Main.js                            */
+/* -------------------------------------------------------------------------- */
+
 export const defaultClothingItems = [
   {
     _id: 0,
@@ -42,6 +46,9 @@ export const defaultClothingItems = [
       "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Coat.png?etag=298717ed89d5e40b1954a1831ae0bdd4",
   },
 ];
+/* -------------------------------------------------------------------------- */
+/*                          Export for weatherCard.js                         */
+/* -------------------------------------------------------------------------- */
 
 export const weatherOptions = [
   {
@@ -66,4 +73,10 @@ export const weatherOptions = [
   },
 ];
 
+/* -------------------------------------------------------------------------- */
+/*                          Exports for weatherApi.js                         */
+/* -------------------------------------------------------------------------- */
+
 export const APIkey = "544989dd091e1898f7c9947468dd5801";
+export const latitude = 44.34;
+export const longitude = 10.99;

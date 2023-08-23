@@ -1,9 +1,6 @@
 //https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${APIkey}
 
-import { APIkey } from "./constants";
-
-const latitude = 44.34;
-const longitude = 10.99;
+import { APIkey, latitude, longitude } from "./constants";
 
 const processServerRequest = (res) => {
   if (res.ok) {

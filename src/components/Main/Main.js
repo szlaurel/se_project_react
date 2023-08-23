@@ -32,9 +32,13 @@ function Main({ weatherTemp, onSelectCard }) {
       <section className="item-card__section" id="card-section">
         Today is {weatherTemp}°F / You may want to wear:
         <div className="item-card__items main-section__image">
-          {filteredCards.map((item, index) => {
+          {filteredCards.map((item, card) => {
             return (
-              <ItemCard key={index} item={item} onSelectCard={onSelectCard} />
+              <ItemCard
+                key={card._id}
+                item={item}
+                onSelectCard={onSelectCard}
+              />
             );
           })}
         </div>
