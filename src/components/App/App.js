@@ -35,14 +35,18 @@ function App() {
   };
 
   useEffect(() => {
-    getForecastWeather().then((data) => {
-      const temperature = parseWeatherData(data);
-      console.log(temperature);
-      setTemp(temperature);
-    });
+    getForecastWeather()
+      .then((data) => {
+        const temperature = parseWeatherData(data);
+        console.log(temperature);
+        setTemp(temperature);
+      })
+      .catch((err) => {
+        console.log("there was an error", err);
+      });
   }, []);
 
-  console.log(temp);
+  // console.log(temp);
 
   return (
     <div>
@@ -50,7 +54,11 @@ function App() {
       <Main weatherTemp={temp} onSelectCard={handleSelectedCard} temp={temp} />
       <Footer />
       {activeModal === "create" && (
-        <ModalWithForm title="New Garment" onClose={handleCloseModal}>
+        <ModalWithForm
+          title="New Garment"
+          onClose={handleCloseModal}
+          buttonText="Add garment"
+        >
           <label className="modal__label">Name</label>
           <input
             name="name"
@@ -74,15 +82,15 @@ function App() {
           <p>Select the weather type:</p>
           <div>
             <div>
-              <input type="radio" id="hot" value="hot" />
+              <input type="radio" id="hot" name="weather-type" value="hot" />
               <label> Hot</label>
             </div>
             <div>
-              <input type="radio" id="warm" value="warm" />
+              <input type="radio" id="warm" name="weather-type" value="warm" />
               <label> Warm</label>
             </div>
             <div>
-              <input type="radio" id="cold" value="cold" />
+              <input type="radio" id="cold" name="weather-type" value="cold" />
               <label> Cold</label>
             </div>
           </div>

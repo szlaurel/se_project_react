@@ -1,0 +1,30 @@
+.item-modal__container {
+  padding: 0;
+}
+
+.item-modal__close-button {
+  bottom: calc(90% + 4%);
+  left: calc(90% + 3%);
+}
+
+.item-modal__image {
+  max-width: 496px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+.item-modal__name {
+  font-family: "CabinetGrotesk-Medium", arial, sans-serif;
+  font-family: "CabinetGrotesk-Medium", arial, sans-serif;
+  font-size: 20px;
+  margin-top: 20px;
+  margin-left: 32px;
+  margin-bottom: 12px;
+}
+
+.item-modal__weather-name {
+  font-family: "CabinetGrotesk-Medium", arial, sans-serif;
+  font-size: 20px;
+  margin-left: 32px;
+  margin-bottom: 32px;
+}

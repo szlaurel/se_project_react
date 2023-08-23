@@ -1,19 +1,20 @@
 //https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${APIkey}
 
+import { APIkey } from "./constants";
+
 const latitude = 44.34;
 const longitude = 10.99;
-const APIkey = "544989dd091e1898f7c9947468dd5801";
+
+const processServerRequest = (res) => {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Error ${res.status}`);
+};
 
 export const getForecastWeather = () => {
-  const weatherApi =
-    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${APIkey}
-  `).then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Error ${res.status}`);
-      }
-    });
+  const weatherApi = fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${APIkey}
+  `).then(processServerRequest);
   return weatherApi;
 };
 
@@ -25,53 +26,3 @@ export const parseWeatherData = (data) => {
 };
 
 export default getForecastWeather;
-
-const response = {
-  coord: {
-    lon: 10.99,
-    lat: 44.34,
-  },
-  weather: [
-    {
-      id: 501,
-      main: "Rain",
-      description: "moderate rain",
-      icon: "10d",
-    },
-  ],
-  base: "stations",
-  main: {
-    temp: 298.48,
-    feels_like: 298.74,
-    temp_min: 297.56,
-    temp_max: 300.05,
-    pressure: 1015,
-    humidity: 64,
-    sea_level: 1015,
-    grnd_level: 933,
-  },
-  visibility: 10000,
-  wind: {
-    speed: 0.62,
-    deg: 349,
-    gust: 1.18,
-  },
-  rain: {
-    "1h": 3.16,
-  },
-  clouds: {
-    all: 100,
-  },
-  dt: 1661870592,
-  sys: {
-    type: 2,
-    id: 2075663,
-    country: "IT",
-    sunrise: 1661834187,
-    sunset: 1661882248,
-  },
-  timezone: 7200,
-  id: 3163858,
-  name: "Zocca",
-  cod: 200,
-};

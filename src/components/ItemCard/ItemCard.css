@@ -6,6 +6,7 @@
   width: 325px;
   height: 328px;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .item-card__name {

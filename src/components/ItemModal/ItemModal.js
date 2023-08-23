@@ -6,15 +6,21 @@ export const ItemModal = ({ selectedCard, onClose }) => {
 
   return (
     <div className={`modal`}>
-      <div className="modal__container">
+      <div className="modal__container item-modal__container">
         <button
           type="button"
           onClick={onClose}
-          className="modal__close"
+          className="modal__close item-modal__close-button"
         ></button>
-        <img src={selectedCard.link} alt={selectedCard.name} />
-        <div>{selectedCard.name}</div>
-        <div>Weather type: {selectedCard.weather}</div>
+        <img
+          className="item-modal__image"
+          src={selectedCard.link}
+          alt={selectedCard.name}
+        />
+        <div className="item-modal__name">{selectedCard.name}</div>
+        <div className="item-modal__weather-name">
+          Weather type: {selectedCard.weather}
+        </div>
       </div>
     </div>
   );
