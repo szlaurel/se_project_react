@@ -2,6 +2,7 @@ import "./Header.css";
 import React from "react";
 import logo from "../../images/Logo.svg";
 import avatarlogo from "../../images/Avatarlogo.svg";
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
 const Header = ({ onCreateModal }) => {
   const todaysDate = new Date();
@@ -15,6 +16,7 @@ const Header = ({ onCreateModal }) => {
         <div>{todaysDate.toLocaleDateString()}</div>
       </div>
       <div className="header__avatar-logo">
+        <ToggleSwitch />
         <div>
           <button
             type="text"

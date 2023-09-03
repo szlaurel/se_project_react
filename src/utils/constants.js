@@ -80,6 +80,3 @@ export const weatherOptions = [
 export const APIkey = "544989dd091e1898f7c9947468dd5801";
 export const latitude = 44.34;
 export const longitude = 10.99;
-
-//checking for changes???
-//hello
