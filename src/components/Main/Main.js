@@ -1,18 +1,28 @@
 import { defaultClothingItems } from "../../utils/constants";
 import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard";
-import { useMemo } from "react";
+import { useMemo, useContext } from "react";
 import weatherApi from "../../utils/weatherApi";
 import "./Main.css";
 import React from "react";
+import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext";
 
 function Main({ weatherTemp, onSelectCard }) {
+  const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
+  console.log(currentTemperatureUnit);
+  // this VV code doesnt work becuase i dont have the right loader for this file type
+  // const temp = weatherTemp?.temperature?.[currentTemperatureUnit] || 999;
+  const temp =
+    (weatherTemp &&
+      weatherTemp.temperature &&
+      weatherTemp.temperature[currentTemperatureUnit]) ||
+    999;
   const getWeatherType = (weatherTemp) => {
-    if (weatherTemp >= 86) {
+    if (temp >= 86) {
       return "hot";
-    } else if (weatherTemp >= 66 && weatherTemp <= 85) {
+    } else if (temp >= 66 && temp <= 85) {
       return "warm";
-    } else if (weatherTemp <= 65) {
+    } else if (temp <= 65) {
       return "cold";
     }
   };
@@ -28,9 +38,15 @@ function Main({ weatherTemp, onSelectCard }) {
   console.log(filteredCards);
   return (
     <main className="main">
-      <WeatherCard day={true} type="cloudy" weatherTemp={weatherTemp} />
+      <WeatherCard
+        day={true}
+        type="cloudy"
+        weatherTemp={temp}
+        weatherScale={currentTemperatureUnit}
+      />
       <section className="item-card__section" id="card-section">
-        Today is {weatherTemp}°F / You may want to wear:
+        Today is {temp}
+        {`°${currentTemperatureUnit}`} / You may want to wear:
         <div className="item-card__items main-section__image">
           {filteredCards.map((item, card) => {
             return (
