@@ -5,7 +5,7 @@ import { useMemo, useContext } from "react";
 import weatherApi from "../../utils/weatherApi";
 import "./Main.css";
 import React from "react";
-import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext";
+import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 
 function Main({ weatherTemp, onSelectCard, items }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);

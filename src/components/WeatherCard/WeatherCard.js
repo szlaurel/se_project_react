@@ -3,7 +3,7 @@ import weatherApi from "../../utils/weatherApi";
 import React, { useContext } from "react";
 import cloudy from "../../images/day/cloudy.svg";
 import { weatherOptions } from "../../utils/constants";
-import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext";
+import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 
 const WeatherCard = ({ day, type, weatherTemp = "", weatherScale = "" }) => {
   console.log("weathercard");

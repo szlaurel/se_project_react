@@ -14,7 +14,7 @@ import {
   parseWeatherLocation,
 } from "../../utils/weatherApi";
 import React from "react";
-import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext";
+import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import Profile from "../Profile/Profile";
