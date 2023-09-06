@@ -16,9 +16,16 @@ const AddItemModal = ({ handleCloseModal, onAddItem, isOpen }) => {
     setUrl(e.target.value);
   };
 
+  const [weatherType, setWeatherType] = useState("");
+
+  const handleWeatherTypeChange = (e) => {
+    console.log(e.target.value);
+    setWeatherType(e.target.value);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddItem({ name, link });
+    onAddItem({ name, link, weatherType });
   };
 
   return (
@@ -56,15 +63,33 @@ const AddItemModal = ({ handleCloseModal, onAddItem, isOpen }) => {
       <p>Select the weather type:</p>
       <div>
         <div>
-          <input type="radio" id="hot" name="weather-type" value="hot" />
+          <input
+            type="radio"
+            id="hot"
+            name="weather-type"
+            value="hot"
+            onChange={handleWeatherTypeChange}
+          />
           <label> Hot</label>
         </div>
         <div>
-          <input type="radio" id="warm" name="weather-type" value="warm" />
+          <input
+            type="radio"
+            id="warm"
+            name="weather-type"
+            value="warm"
+            onChange={handleWeatherTypeChange}
+          />
           <label> Warm</label>
         </div>
         <div>
-          <input type="radio" id="cold" name="weather-type" value="cold" />
+          <input
+            type="radio"
+            id="cold"
+            name="weather-type"
+            value="cold"
+            onChange={handleWeatherTypeChange}
+          />
           <label> Cold</label>
         </div>
       </div>

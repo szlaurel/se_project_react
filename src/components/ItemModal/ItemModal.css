@@ -28,3 +28,17 @@
   margin-left: 32px;
   margin-bottom: 32px;
 }
+
+.item-modal__delete-button {
+  position: absolute;
+  font-family: "CabinetGrotesk-Medium", arial, sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  border: 0;
+  padding: 0px 0px 0px 0px;
+  background-color: transparent;
+  cursor: pointer;
+  color: rgba(255, 77, 0, 1);
+  bottom: calc(90% + -79%);
+  left: calc(70% + 3%);
+}

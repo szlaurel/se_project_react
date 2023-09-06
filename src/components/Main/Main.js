@@ -7,10 +7,10 @@ import "./Main.css";
 import React from "react";
 import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext";
 
-function Main({ weatherTemp, onSelectCard }) {
+function Main({ weatherTemp, onSelectCard, items }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
   console.log(currentTemperatureUnit);
-  // this VV code doesnt work becuase i dont have the right loader for this file type
+  // this VV code doesnt work becuase i dont have the right loader for this file type but we have a fix for it.
   // const temp = weatherTemp?.temperature?.[currentTemperatureUnit] || 999;
   const temp =
     (weatherTemp &&
@@ -30,7 +30,7 @@ function Main({ weatherTemp, onSelectCard }) {
 
   console.log(weatherType);
 
-  const filteredCards = defaultClothingItems.filter((item) => {
+  const filteredCards = items.filter((item) => {
     console.log(item);
     return item.weather.toLowerCase() === weatherType;
   });

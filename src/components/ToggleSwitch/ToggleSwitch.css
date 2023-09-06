@@ -9,6 +9,11 @@
   width: 56px;
   height: 30px;
   appearance: none;
+  opacity: 0.6;
+}
+
+.switch__box:hover {
+  opacity: 1;
 }
 
 .switch__slider {
@@ -58,6 +63,7 @@
   top: -7px;
   left: 14px;
   font-size: 16px;
+  opacity: 0.6;
 }
 
 .switch__temp-C.false {
@@ -65,4 +71,5 @@
   top: -7px;
   left: 40px;
   font-size: 16px;
+  opacity: 0.6;
 }
