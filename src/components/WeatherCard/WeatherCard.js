@@ -13,8 +13,10 @@ const WeatherCard = ({ day, type, weatherTemp = "", weatherScale = "" }) => {
   });
   console.log(weatherOption);
   // console.log(weatherOption[0].url);
-
   const imageSrcUrl = weatherOption ? weatherOption.url : "";
+  console.log(imageSrcUrl.default);
+  const defaultImageSrc = imageSrcUrl.default;
+
   return (
     <section className="weather" id="weather">
       <div className="weather_info">
@@ -22,7 +24,11 @@ const WeatherCard = ({ day, type, weatherTemp = "", weatherScale = "" }) => {
         {`°${weatherScale}`}
       </div>
       <div>
-        <img src={imageSrcUrl} className="weather_image" alt={imageSrcUrl} />
+        <img
+          src={defaultImageSrc}
+          className="weather_image"
+          alt={imageSrcUrl}
+        />
       </div>
     </section>
   );
