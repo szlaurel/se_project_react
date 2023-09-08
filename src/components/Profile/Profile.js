@@ -4,7 +4,7 @@ import ItemCard from "../ItemCard/ItemCard";
 import SideBar from "../SideBar/SideBar";
 import ClothesSection from "../ClothesSection/ClothesSection";
 
-const Profile = ({ items, onSelectCard }) => {
+const Profile = ({ items, onSelectCard, onCreateModal }) => {
   // const AllClothingItems = items.filter((item) => {
   //   console.log(item);
   // });
@@ -16,7 +16,11 @@ const Profile = ({ items, onSelectCard }) => {
         <SideBar />
       </section>
       <section>
-        <ClothesSection items={items} onSelectCard={onSelectCard} />
+        <ClothesSection
+          items={items}
+          onSelectCard={onSelectCard}
+          onCreateModal={onCreateModal}
+        />
       </section>
     </div>
   );

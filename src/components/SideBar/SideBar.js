@@ -1,6 +1,7 @@
 import React from "react";
 import avatarlogo from "../../images/Avatarlogo.svg";
 import "./SideBar.css";
+
 const SideBar = () => {
   return (
     <div className="sidebar__main">

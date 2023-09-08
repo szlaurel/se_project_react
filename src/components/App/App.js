@@ -77,6 +77,7 @@ function App() {
       })
       .then((item) => {
         setItems([item, ...items]);
+        handleCloseModal();
       });
     console.log(values);
   };
@@ -126,7 +127,11 @@ function App() {
             />
           </Route>
           <Route path="/profile">
-            <Profile items={items} onSelectCard={handleSelectedCard} />
+            <Profile
+              items={items}
+              onSelectCard={handleSelectedCard}
+              onCreateModal={handleCreateModal}
+            />
           </Route>
         </Switch>
         <Footer />
@@ -135,6 +140,7 @@ function App() {
             handleCloseModal={handleCloseModal}
             isOpen={activeModal === "create"}
             onAddItem={onAddItem}
+            onClose={handleCloseModal}
           />
         )}
         {activeModal === "preview" && (
