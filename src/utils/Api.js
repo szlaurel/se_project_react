@@ -37,4 +37,11 @@ class Api {
   }
 }
 
+const baseUrl = "http://localhost:3001";
+
+export const api = new Api({
+  baseUrl: baseUrl,
+  headers: { "Content-Type": "application/json" },
+});
+
 export default Api;
