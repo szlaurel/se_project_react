@@ -56,7 +56,7 @@ function App() {
       .catch((err) => {
         console.log("an error has occured, please see error", err);
       })
-      .finally(console.log("done"));
+      .finally(() => console.log("done"));
   };
 
   const handleSelectedCard = (card) => {
@@ -82,7 +82,7 @@ function App() {
       .catch((err) => {
         console.log("an error has occured, please see error", err);
       })
-      .finally(console.log("done"));
+      .finally(() => console.log("done"));
     console.log(values);
   };
 
@@ -103,7 +103,7 @@ function App() {
       .catch((err) => {
         console.log("there was an error", err);
       })
-      .finally(console.log("done"));
+      .finally(() => console.log("done"));
     api
       .getItems()
       .then((res) => {
@@ -112,7 +112,7 @@ function App() {
       .catch((err) => {
         console.log("there was an error", err);
       })
-      .finally(console.log("done"));
+      .finally(() => console.log("done"));
   }, []);
 
   // console.log(temp);
