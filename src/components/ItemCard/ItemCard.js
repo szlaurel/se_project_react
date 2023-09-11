@@ -11,8 +11,8 @@ const ItemCard = ({ item, onSelectCard }) => {
           alt={item.name}
           onClick={() => onSelectCard(item)}
         />
+        <h3 className="item-card__name">{item.name}</h3>
       </div>
-      <h3 className="item-card__name">{item.name}</h3>
     </div>
   );
 };
