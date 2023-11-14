@@ -1,0 +1,13 @@
+.register__button_log-in {
+  font-family: "CabinetGrotesk-Medium", arial, sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  border: 0;
+  padding: 0px 0px 0px 0px;
+  background-color: transparent;
+  color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  position: relative;
+  bottom: -65px;
+  right: 75px;
+}

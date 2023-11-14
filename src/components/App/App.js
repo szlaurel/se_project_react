@@ -8,6 +8,8 @@ import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal";
+import RegisterModal from "../RegisterModal/RegisterModal";
+import LoginModal from "../LoginModal/LoginModal";
 import {
   getForecastWeather,
   parseWeatherData,
@@ -19,6 +21,9 @@ import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import Profile from "../Profile/Profile";
 import { api } from "../../utils/Api";
+import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
+import * as auth from "../../utils/auth";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function App() {
   const weatherTemp = "75°F";
@@ -30,8 +35,38 @@ function App() {
   const [newItem, setNewItem] = useState("");
   const [deleteCard, setDeleteCard] = useState("");
 
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  const history = useHistory();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    setLoggedIn(true);
+  };
+
+  // need to put useEffect in front of this token check first
+  // const tokenCheck = () => {
+  //   if (localStorage.getItem("jwt")) {
+  //     const jwt = localStorage.getItem("jwt");
+  //     auth.getContent(jwt).then((res) => {
+  //       // check the content
+  //       if (!res) {
+  //         console.log(res);
+  //       }
+  //     });
+  //   }
+  // };
+
   const handleCreateModal = () => {
     setActiveModal("create");
+  };
+
+  const handleRegisterModal = () => {
+    setActiveModal("register");
+  };
+
+  const handleLoginModal = () => {
+    setActiveModal("login");
   };
 
   const handleCloseModal = () => {
@@ -63,6 +98,51 @@ function App() {
     setActiveModal("preview");
     setSelectedCard(card);
   };
+
+  const onRegisterUser = (values) => {
+    const userName = values.name;
+    const email = values.email;
+    const link = values.link;
+    const password = values.password;
+
+    auth
+      .register({
+        name: userName,
+        link: link,
+        email: email,
+        password: password,
+      })
+      .then((data) => {
+        if (data.jwt) {
+          console.log(data.jwt);
+          handleCloseModal();
+        }
+        return;
+      })
+      .catch((e) => {
+        console.log("im in the catch for auth.register user");
+        console.log(e);
+      });
+  };
+
+  // we just got done writing code for configuring the user authorization
+  // when you get back and read this you need to "check the token" its in the task
+
+  const onLoggedInUser = (values) => {
+    const email = values.email;
+    const password = values.password;
+
+    if (!email || !password) {
+      return;
+    }
+    auth.authorize(email, password).then((data) => {
+      if (data.jwt) {
+        handleLogin();
+      }
+    });
+  };
+
+  // this is what you want to do with registration request and how to send it properly VVV
 
   const onAddItem = (values) => {
     const itemName = values.name;
@@ -121,7 +201,11 @@ function App() {
     <CurrentTemperatureUnitContext.Provider
       value={{ currentTemperatureUnit, handleToggleSwitchChange }}
     >
-      <Header onCreateModal={handleCreateModal} />
+      <Header
+        onCreateModal={handleCreateModal}
+        onRegisterModal={handleRegisterModal}
+        onLoginModal={handleLoginModal}
+      />
       <Switch>
         <Route exact path="/">
           <Main
@@ -131,12 +215,33 @@ function App() {
             items={items}
           />
         </Route>
-        <Route path="/profile">
+        <ProtectedRoute path="/profile" loggedIn={loggedIn}>
           <Profile
             items={items}
             onSelectCard={handleSelectedCard}
             onCreateModal={handleCreateModal}
           />
+        </ProtectedRoute>
+        <Route path="/register">
+          {activeModal === "register" && (
+            <RegisterModal
+              onRegisterUser={onRegisterUser}
+              handleCloseModal={handleCloseModal}
+              isOpen={activeModal === "register"}
+              onClose={handleCloseModal}
+            ></RegisterModal>
+          )}
+        </Route>
+        <Route path="login">
+          {activeModal === "login" && (
+            <LoginModal
+              handleCloseModal={handleCloseModal}
+              isOpen={activeModal === "login"}
+              onClose={handleCloseModal}
+              handleLogin={handleLogin}
+              onLoggedInUser={onLoggedInUser}
+            ></LoginModal>
+          )}
         </Route>
       </Switch>
       <Footer />

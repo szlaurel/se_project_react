@@ -75,6 +75,11 @@
   margin-bottom: 24px;
 }
 
+.modal__button-container {
+  display: flex;
+  gap: 12px;
+}
+
 .modal__button {
   margin-top: 32px;
   padding-top: 8px;
@@ -107,10 +112,25 @@
   height: 36px;
 }
 
+.modal__button-alternate {
+  font-family: "CabinetGrotesk-Medium", arial, sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  border: 0;
+  padding: 0px 0px 0px 0px;
+  background-color: transparent;
+  cursor: pointer;
+  padding-top: 30px;
+}
+
 .modal__button:hover {
   opacity: 0.6;
 }
 
 .modal__button:disabled {
+  opacity: 0.3;
+}
+
+.modal__button-alternate:disabled {
   opacity: 0.3;
 }
