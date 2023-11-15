@@ -1,6 +1,6 @@
 export const BASE_URL = "http://localhost:3001";
 
-// sign up
+// /signup
 export const register = (name, link, email, password) => {
   return fetch(`${BASE_URL}/auth/local/register`, {
     method: "POST",
@@ -16,6 +16,15 @@ export const register = (name, link, email, password) => {
       }
     })
     .then((res) => {
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          name: name,
+          link: link,
+          email: email,
+          password: password,
+        })
+      );
       //return the parsed data to the client
       return res;
     })
@@ -24,7 +33,7 @@ export const register = (name, link, email, password) => {
     });
 };
 
-// sign in
+// /signin
 export const authorize = (email, password) => {
   return fetch(`${BASE_URL}/auth/local`, {
     method: "POST",
@@ -33,11 +42,21 @@ export const authorize = (email, password) => {
     },
     body: JSON.stringify({ email, password }),
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.ok) {
+        response.json();
+      }
+    })
     .then((data) => {
       if (data.jwt) {
+        // the "jwt" is the data.token
+        // the two parameters for localStorage is as followed
+        // 1 is the "key"
+        // 2 is the "value" of the key
+        // in order to retrieve something from "localStorage"
+        // you would need to do "localStorage.getItem("jwt")"
+        // because "jwt" is the key in this case
         localStorage.setItem("jwt", data.token);
-        return data;
       }
     })
     .catch((e) => {
@@ -46,13 +65,20 @@ export const authorize = (email, password) => {
 };
 
 // get token
-export const getContent = () => {
-  return fetch(`${BASE_URL}`, {
+export const getContent = (token) => {
+  return fetch(`${BASE_URL}/users/me`, {
     method: "GET",
     headers: {
-      authorization: `Bearer ${localStorage.getItem("token")}`,
+      Accept: "'application/json",
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
     },
-  });
+  })
+    .then((res) => res.json())
+    .then((data) => data)
+    .catch((e) => {
+      console.log(e);
+    });
 };
 
 /* -------------------------------------------------------------------------- */

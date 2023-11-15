@@ -45,17 +45,25 @@ function App() {
   };
 
   // need to put useEffect in front of this token check first
-  // const tokenCheck = () => {
-  //   if (localStorage.getItem("jwt")) {
-  //     const jwt = localStorage.getItem("jwt");
-  //     auth.getContent(jwt).then((res) => {
-  //       // check the content
-  //       if (!res) {
-  //         console.log(res);
-  //       }
-  //     });
-  //   }
-  // };
+
+  useEffect(() => {
+    if (localStorage.getItem("jwt")) {
+      const jwt = localStorage.getItem("jwt");
+      auth.getContent(jwt).then((res) => {
+        // check the content
+        if (res) {
+          const userData = {
+            username: res.username,
+            password: res.password,
+          };
+          console.log(userData);
+
+          setLoggedIn(true, userData);
+        }
+        history.push("/profile");
+      });
+    }
+  });
 
   const handleCreateModal = () => {
     setActiveModal("create");
@@ -74,8 +82,9 @@ function App() {
   };
 
   const handleDeleteCard = (id) => {
+    const token = localStorage.getItem("jwt");
     api
-      .deleteItems(selectedCard._id)
+      .deleteItems(selectedCard._id, token)
       .then(() => {
         const filteredCards = items.filter((item) => {
           console.log(item._id);
@@ -148,13 +157,17 @@ function App() {
     const itemName = values.name;
     const weatherValue = values.weatherType;
     const imageLink = values.link;
+    const token = localStorage.getItem("jwt");
 
     api
-      .postItems({
-        name: itemName,
-        weather: weatherValue,
-        imageUrl: imageLink,
-      })
+      .postItems(
+        {
+          name: itemName,
+          weather: weatherValue,
+          imageUrl: imageLink,
+        },
+        token
+      )
       .then((item) => {
         setItems([item, ...items]);
         handleCloseModal();
