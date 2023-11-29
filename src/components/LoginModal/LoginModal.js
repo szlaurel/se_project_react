@@ -1,31 +1,32 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import "./LoginModal.css";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import * as auth from "../../utils/auth";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 const LoginModal = ({
   handleCloseModal,
   isOpen,
   handleLogin,
-  onLoggedInUser,
+  // onLoggedInUser,
 }) => {
-  const history = useHistory();
+  // const history = useHistory();
   const [email, setEmail] = useState("");
 
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
+    // debugger;
     e.preventDefault();
-    onLoggedInUser().then((data) => {
-      if (data.jwt) {
-        setEmail("");
-        setPassword("");
-        history.push("/profile");
-      }
-    });
+    handleLogin({ email: email, password: password });
+    setEmail("");
+    setPassword("");
+    handleCloseModal();
+    console.log({ email: email, password: password });
+    console.log("the info got sent and the handle submit works");
 
     // if (!email || !password) {
     //     return;

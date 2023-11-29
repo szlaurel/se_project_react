@@ -3,8 +3,11 @@ import "./Profile.css";
 import ItemCard from "../ItemCard/ItemCard";
 import SideBar from "../SideBar/SideBar";
 import ClothesSection from "../ClothesSection/ClothesSection";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 
-const Profile = ({ items, onSelectCard, onCreateModal }) => {
+const Profile = ({ items, onSelectCard, onCreateModal, onEditModal }) => {
+  const userValue = React.useContext(CurrentUserContext);
   // const AllClothingItems = items.filter((item) => {
   //   console.log(item);
   // });
@@ -13,7 +16,7 @@ const Profile = ({ items, onSelectCard, onCreateModal }) => {
   return (
     <div className="profile__main">
       <section>
-        <SideBar />
+        <SideBar onEditModal={onEditModal} />
       </section>
       <section>
         <ClothesSection

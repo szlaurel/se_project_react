@@ -11,7 +11,7 @@ const ModalWithForm = ({
   isOpen,
   onSubmit,
 }) => {
-  console.log("modalwithform");
+  // console.log("modalwithform");
   return (
     <div className={`modal modal_type${name}`}>
       <div className="modal__container">

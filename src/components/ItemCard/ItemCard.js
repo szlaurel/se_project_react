@@ -4,7 +4,7 @@ import React from "react";
 const ItemCard = ({ item, onSelectCard }) => {
   return (
     <div>
-      <div>
+      <div className="item-card__container">
         <img
           className="item-card__image"
           src={item.imageUrl}
@@ -12,9 +12,31 @@ const ItemCard = ({ item, onSelectCard }) => {
           onClick={() => onSelectCard(item)}
         />
         <h3 className="item-card__name">{item.name}</h3>
+        <button type="button" className="item-card__like-button"></button>
       </div>
     </div>
   );
 };
 
 export default ItemCard;
+
+/* -------------------------------------------------------------------------- */
+/*                              old ItemCard code                             */
+/* -------------------------------------------------------------------------- */
+
+// const ItemCard = ({ item, onSelectCard }) => {
+//   return (
+//     <div>
+//       <div>
+//         <img
+//           className="item-card__image"
+//           src={item.imageUrl}
+//           alt={item.name}
+//           onClick={() => onSelectCard(item)}
+//         />
+//         <h3 className="item-card__name">{item.name}</h3>
+//         <button type="button" className=".item-card__like-button"></button>
+//       </div>
+//     </div>
+//   );
+// };

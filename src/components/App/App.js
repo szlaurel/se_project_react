@@ -17,6 +17,7 @@ import {
 } from "../../utils/weatherApi";
 import React from "react";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import Profile from "../Profile/Profile";
@@ -24,6 +25,7 @@ import { api } from "../../utils/Api";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import * as auth from "../../utils/auth";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import EditProfileModal from "../EditProfileModal/EditProfileModal";
 
 function App() {
   const weatherTemp = "75°F";
@@ -31,55 +33,137 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [temp, setTemp] = useState(0);
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
+  const [currentUser, setCurrentUser] = useState({});
   const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState("");
   const [deleteCard, setDeleteCard] = useState("");
 
   const [loggedIn, setLoggedIn] = useState(false);
 
+  const [userData, setUserData] = useState({});
+
   const history = useHistory();
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    setLoggedIn(true);
-  };
+  // const handleLogin = (e) => {
+  //   // e.preventDefault();
+  //   //then(() => //set goes here)
+  //   setLoggedIn(true);
+  //   setUserData()
+  //   setCurrentUser({ ...currentUser });
+  // };
 
+  // const currentUser = {
+  //   loggedIn,
+  //   userData,
+  // };
+
+  console.log(userData);
+
+  console.log(loggedIn);
+
+  console.log(currentUser);
   // need to put useEffect in front of this token check first
+  /* -------------------------------------------------------------------------- */
+  /*            old useEffect code regarding locaStorage.getItem jwt            */
+  /* -------------------------------------------------------------------------- */
+  // useEffect(() => {
+  //   if (localStorage.getItem("jwt")) {
+  //     const jwt = localStorage.getItem("jwt");
+  //     auth
+  //       .getContent(jwt)
+  //       .then((res) => {
+  //         check the content
+  //         if (res) {
+  //           const userData = {
+  //             username: res.username,
+  //             password: res.password,
+  //           };
+  //           get rid of this console.log when you have what you need from userData
+
+  //           console.log(userData);
+  //         }
+  //         history.push("/profile");
+  //       })
+  //       .catch((e) => {
+  //         console.log(e);
+  //       });
+  //   }
+  // });
+
+  // need to rewrite the entire useEffect code to check
+
+  /* -------------------------------------------------------------------------- */
+  /*            new useEffect code regarding localstorage.getItem jwt           */
+  /* -------------------------------------------------------------------------- */
+
+  // an error occurs here at the useEffect when the users token expires in 7 days
+  // and it says that there's an error reading email.
+  // need to find a way to prevent this from happening
+  // maybe i might need to add an else if that states if the !res then just return
+
+  // the error for reading undefined when emails and usernames don't go through happen here at the useEffect
+  // add loggedIn in the dependency to run after it checks that checks
+  // user is loggedIn
 
   useEffect(() => {
-    if (localStorage.getItem("jwt")) {
-      const jwt = localStorage.getItem("jwt");
+    const jwt = localStorage.getItem("jwt");
+    if ("jwt") {
       auth.getContent(jwt).then((res) => {
-        // check the content
         if (res) {
+          console.log(res.data.email);
           const userData = {
-            username: res.username,
-            password: res.password,
+            username: res.data.name,
+            email: res.data.email,
+            avatar: res.data.avatar,
+            id: res.data._id,
           };
-          console.log(userData);
-
-          setLoggedIn(true, userData);
+          setUserData(userData);
+          setLoggedIn(true);
+          setCurrentUser(userData);
+          history.push("/profile");
+        } else if (!res) {
+          return;
+        } else {
+          return;
         }
-        history.push("/profile");
       });
     }
-  });
+  }, [loggedIn]);
+
+  /* -------------------------------------------------------------------------- */
+  /*                             handle open modals                             */
+  /* -------------------------------------------------------------------------- */
 
   const handleCreateModal = () => {
     setActiveModal("create");
   };
 
-  const handleRegisterModal = () => {
+  const handleRegisterModal = (e) => {
     setActiveModal("register");
+    console.log("the register button works");
   };
 
   const handleLoginModal = () => {
     setActiveModal("login");
+    console.log("the login button works");
   };
 
   const handleCloseModal = () => {
     setActiveModal("");
   };
+  const handleSelectedCard = (card) => {
+    setActiveModal("preview");
+    setSelectedCard(card);
+  };
+
+  const handleEditModal = () => {
+    setActiveModal("editUser");
+    console.log("the edit modal button works");
+  };
+
+  /* -------------------------------------------------------------------------- */
+  /*                              delete card code                              */
+  /* -------------------------------------------------------------------------- */
 
   const handleDeleteCard = (id) => {
     const token = localStorage.getItem("jwt");
@@ -103,16 +187,17 @@ function App() {
       .finally(() => console.log("done"));
   };
 
-  const handleSelectedCard = (card) => {
-    setActiveModal("preview");
-    setSelectedCard(card);
-  };
+  /* -------------------------------------------------------------------------- */
+  /*                               handle submits                               */
+  /* -------------------------------------------------------------------------- */
 
-  const onRegisterUser = (values) => {
+  const handleRegister = (values) => {
     const userName = values.name;
     const email = values.email;
     const link = values.link;
     const password = values.password;
+
+    console.log(userName, "this is just test if the variables load up");
 
     auth
       .register({
@@ -122,11 +207,8 @@ function App() {
         password: password,
       })
       .then((data) => {
-        if (data.jwt) {
-          console.log(data.jwt);
-          handleCloseModal();
-        }
-        return;
+        console.log(data);
+        handleCloseModal();
       })
       .catch((e) => {
         console.log("im in the catch for auth.register user");
@@ -137,23 +219,25 @@ function App() {
   // we just got done writing code for configuring the user authorization
   // when you get back and read this you need to "check the token" its in the task
 
-  const onLoggedInUser = (values) => {
+  const handleLogin = (values) => {
+    // debugger
     const email = values.email;
     const password = values.password;
 
     if (!email || !password) {
       return;
     }
-    auth.authorize(email, password).then((data) => {
-      if (data.jwt) {
-        handleLogin();
-      }
+    auth.authorize({ email: email, password: password }).then((res) => {
+      // localStorage.setItem("jwt", res.token);
+      // console.log(res.token);
+      console.log(res);
+      setLoggedIn(true);
+      setUserData(res.userData);
+      setCurrentUser({ ...currentUser });
     });
   };
 
-  // this is what you want to do with registration request and how to send it properly VVV
-
-  const onAddItem = (values) => {
+  const handleAddItem = (values) => {
     const itemName = values.name;
     const weatherValue = values.weatherType;
     const imageLink = values.link;
@@ -169,7 +253,9 @@ function App() {
         token
       )
       .then((item) => {
-        setItems([item, ...items]);
+        console.log(item);
+        const newItem = item?.data;
+        setItems([newItem, ...items]);
         handleCloseModal();
       })
       .catch((err) => {
@@ -179,7 +265,20 @@ function App() {
     console.log(values);
   };
 
-  console.log(setItems);
+  const handleEditUser = (values) => {
+    const username = values.username;
+    const avatar = values.avatar;
+    const jwt = localStorage.getItem("jwt");
+
+    if (!username || !avatar) {
+      return;
+    }
+    auth.updateProfile({ name: username, avatar: avatar }, jwt).then((res) => {
+      console.log(res);
+    });
+  };
+
+  // this is what you want to do with registration request and how to send it properly VVV
 
   const handleToggleSwitchChange = () => {
     if (currentTemperatureUnit === "F") setCurrentTemperatureUnit("C");
@@ -208,72 +307,81 @@ function App() {
       .finally(() => console.log("done"));
   }, []);
 
+  // console.log(setItems);
+  console.log(items);
+
   // console.log(temp);
   console.log(currentTemperatureUnit);
   return (
-    <CurrentTemperatureUnitContext.Provider
-      value={{ currentTemperatureUnit, handleToggleSwitchChange }}
-    >
-      <Header
-        onCreateModal={handleCreateModal}
-        onRegisterModal={handleRegisterModal}
-        onLoginModal={handleLoginModal}
-      />
-      <Switch>
-        <Route exact path="/">
-          <Main
-            weatherTemp={temp}
-            onSelectCard={handleSelectedCard}
-            temp={temp}
-            items={items}
-          />
-        </Route>
-        <ProtectedRoute path="/profile" loggedIn={loggedIn}>
-          <Profile
-            items={items}
-            onSelectCard={handleSelectedCard}
-            onCreateModal={handleCreateModal}
-          />
-        </ProtectedRoute>
-        <Route path="/register">
-          {activeModal === "register" && (
-            <RegisterModal
-              onRegisterUser={onRegisterUser}
-              handleCloseModal={handleCloseModal}
-              isOpen={activeModal === "register"}
-              onClose={handleCloseModal}
-            ></RegisterModal>
-          )}
-        </Route>
-        <Route path="login">
-          {activeModal === "login" && (
-            <LoginModal
-              handleCloseModal={handleCloseModal}
-              isOpen={activeModal === "login"}
-              onClose={handleCloseModal}
-              handleLogin={handleLogin}
-              onLoggedInUser={onLoggedInUser}
-            ></LoginModal>
-          )}
-        </Route>
-      </Switch>
-      <Footer />
-      {activeModal === "create" && (
-        <AddItemModal
-          handleCloseModal={handleCloseModal}
-          isOpen={activeModal === "create"}
-          onAddItem={onAddItem}
-          onClose={handleCloseModal}
+    <CurrentUserContext.Provider value={{ currentUser }}>
+      <CurrentTemperatureUnitContext.Provider
+        value={{ currentTemperatureUnit, handleToggleSwitchChange }}
+      >
+        <Header
+          onCreateModal={handleCreateModal}
+          onRegisterModal={handleRegisterModal}
+          onLoginModal={handleLoginModal}
         />
-      )}
-      {activeModal === "preview" && (
-        <ItemModal
-          selectedCard={selectedCard}
-          onClose={handleCloseModal}
-          onDelete={handleDeleteCard}
-        />
-      )}
-    </CurrentTemperatureUnitContext.Provider>
+        <Switch>
+          <Route exact path="/">
+            <Main
+              weatherTemp={temp}
+              onSelectCard={handleSelectedCard}
+              temp={temp}
+              items={items}
+            />
+          </Route>
+          <ProtectedRoute path="/profile" loggedIn={loggedIn}>
+            <Profile
+              items={items}
+              onSelectCard={handleSelectedCard}
+              onCreateModal={handleCreateModal}
+              onEditModal={handleEditModal}
+            />
+          </ProtectedRoute>
+        </Switch>
+        <Footer />
+        {activeModal === "register" && (
+          <RegisterModal
+            handleRegister={handleRegister}
+            handleCloseModal={handleCloseModal}
+            isOpen={activeModal === "register"}
+            onClose={handleCloseModal}
+          ></RegisterModal>
+        )}
+        {activeModal === "login" && (
+          <LoginModal
+            handleCloseModal={handleCloseModal}
+            isOpen={activeModal === "login"}
+            onClose={handleCloseModal}
+            handleLogin={handleLogin}
+            // onLoggedInUser={onLoggedInUser}
+          ></LoginModal>
+        )}
+        {activeModal === "create" && (
+          <AddItemModal
+            handleCloseModal={handleCloseModal}
+            isOpen={activeModal === "create"}
+            handleAddItem={handleAddItem}
+            onClose={handleCloseModal}
+          />
+        )}
+        {activeModal === "preview" && (
+          <ItemModal
+            selectedCard={selectedCard}
+            onClose={handleCloseModal}
+            onDelete={handleDeleteCard}
+          />
+        )}
+        {activeModal === "editUser" && (
+          <EditProfileModal
+            handleCloseModal={handleCloseModal}
+            isOpen={activeModal === "editUser"}
+            handleEditUser={handleEditUser}
+          />
+        )}
+      </CurrentTemperatureUnitContext.Provider>
+    </CurrentUserContext.Provider>
   );
 }
 

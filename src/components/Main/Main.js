@@ -59,7 +59,10 @@ function Main({ weatherTemp, onSelectCard, items }) {
   console.log(temp);
 
   const filteredCards = items.filter((item) => {
-    console.log(item);
+    // uncomment this to check if the items show up VVVV
+    // console.log(item);
+    // theres an error that occurs when adding clothes and the error happens here.
+    console.log(item.weather);
     return item.weather.toLowerCase() === weatherType;
   });
 

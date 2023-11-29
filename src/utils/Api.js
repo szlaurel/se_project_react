@@ -62,7 +62,7 @@ export const api = new Api({
 
 // in the end i just decided to hardcode each of the requests that needed authorization bearer
 // for the token.
-// There has to be a better way to implement into the class moving forward
+// There has to be a better way to implement that into the class moving forward
 // or when im done with the project
 
 // authorizedHeaders: {

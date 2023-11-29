@@ -10,6 +10,7 @@
   width: 56px;
   height: 56px;
   margin-right: 16px;
+  border-radius: 75%;
 }
 
 .sidebar__name {
@@ -17,4 +18,30 @@
   font-size: 20px;
   height: 25px;
   line-height: 24.8px;
+}
+
+.sidebar__buttons {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.sidebar__edit-profile_button {
+  font-family: "CabinetGrotesk-Medium", arial, sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.sidebar__log-out_button {
+  font-family: "CabinetGrotesk-Medium", arial, sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
 }

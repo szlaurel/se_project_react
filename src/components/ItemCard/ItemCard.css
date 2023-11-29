@@ -9,13 +9,18 @@
   cursor: pointer;
 }
 
+.item-card__container {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
 .item-card__name {
   text-align: center;
   font-family: "CabinetGrotesk-Bold", arial, sans-serif;
   font-weight: 700;
   font-size: 20px;
   position: relative;
-  top: -327px;
+  top: 40px;
   border-radius: 4px;
   padding: 2px 12px 2px 12px;
   border: solid 2px;
@@ -35,4 +40,21 @@
   justify-content: center;
   margin-top: 20px;
   border: 1px;
+}
+
+.item-card__like-button {
+  background: transparent url(../../images/likebuttoninactive.svg) center
+    no-repeat;
+  width: 20px;
+  height: 20px;
+  border: 0px;
+  position: relative;
+  top: 85px;
+  left: 70px;
+  margin: auto;
+}
+
+.item-card__like-button_active {
+  background: transparent url(../../images/likebuttonactive.svg) center
+    no-repeat;
 }

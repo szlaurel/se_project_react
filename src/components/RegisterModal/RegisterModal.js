@@ -5,7 +5,8 @@ import "./RegisterModal.css";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import * as auth from "../../utils/auth";
 
-const RegisterModal = ({ handleCloseModal, isOpen, onRegisterUser }) => {
+const RegisterModal = ({ handleCloseModal, isOpen, handleRegister }) => {
+  console.log("some string");
   const history = useHistory();
   const [name, setName] = useState("");
 
@@ -39,11 +40,12 @@ const RegisterModal = ({ handleCloseModal, isOpen, onRegisterUser }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (password === confirmPassword) {
-      onRegisterUser({ name, link, email, password }).then((res) => {
-        console.log(res);
-      });
-    }
+    handleRegister({
+      name: name,
+      link: link,
+      email: email,
+      password: password,
+    });
   };
 
   return (
