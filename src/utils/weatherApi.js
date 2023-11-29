@@ -10,7 +10,8 @@ const processServerRequest = (res) => {
 };
 
 export const getForecastWeather = () => {
-  const weatherApi = fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${APIkey}
+  const weatherApi =
+    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${APIkey}
   `).then(processServerRequest);
   return weatherApi;
 };
@@ -24,8 +25,8 @@ export const parseWeatherData = (data) => {
       C: Math.round(((temperature - 32) * 5) / 9),
     },
   };
-  console.log(weather);
-  console.log(Math.ceil(temperature));
+  // console.log(weather);
+  // console.log(Math.ceil(temperature));
   return weather;
 };
 

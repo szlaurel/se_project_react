@@ -1,5 +1,9 @@
 export const BASE_URL = "http://localhost:3001";
 
+/* -------------------------------------------------------------------------- */
+/*                             code for signing up                            */
+/* -------------------------------------------------------------------------- */
+
 // /signup
 export const register = ({ name, link, email, password }) => {
   return fetch(`${BASE_URL}/signup`, {
@@ -32,6 +36,10 @@ export const register = ({ name, link, email, password }) => {
       console.log(e);
     });
 };
+
+/* -------------------------------------------------------------------------- */
+/*                             code for signing in                            */
+/* -------------------------------------------------------------------------- */
 
 // /signin
 // for the signin request i removed the headers
@@ -74,6 +82,9 @@ export const authorize = ({ email, password }) => {
     });
 };
 
+/* -------------------------------------------------------------------------- */
+/*                          to get the token aka jwt                          */
+/* -------------------------------------------------------------------------- */
 // get token
 export const getContent = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
@@ -110,6 +121,47 @@ export const updateProfile = ({ name, avatar }, token) => {
       console.log(e);
     });
 };
+
+/* -------------------------------------------------------------------------- */
+/*                             add card like code                             */
+/* -------------------------------------------------------------------------- */
+export const addCardLike = (id, token) => {
+  return fetch(`${BASE_URL}/items/${id}/likes`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => data)
+    .catch((e) => {
+      console.log(e);
+    });
+};
+
+/* -------------------------------------------------------------------------- */
+/*                            remove card like code                           */
+/* -------------------------------------------------------------------------- */
+
+export const removeCardLike = (id, token) => {
+  return fetch(`${BASE_URL}/items/${id}/likes`, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => data)
+    .catch((e) => {
+      console.log(e);
+    });
+};
+
+// i actually don't know if the useEffect statement goes here im going to have recheck this again
 /* -------------------------------------------------------------------------- */
 /*                      the useEffect statement goes here                     */
 /* -------------------------------------------------------------------------- */

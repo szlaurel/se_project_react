@@ -56,12 +56,11 @@ function App() {
   //   loggedIn,
   //   userData,
   // };
+  // console.log(userData);
 
-  console.log(userData);
+  // console.log(loggedIn);
 
-  console.log(loggedIn);
-
-  console.log(currentUser);
+  // console.log(currentUser);
   // need to put useEffect in front of this token check first
   /* -------------------------------------------------------------------------- */
   /*            old useEffect code regarding locaStorage.getItem jwt            */
@@ -188,6 +187,44 @@ function App() {
   };
 
   /* -------------------------------------------------------------------------- */
+  /*                            handle like card code                           */
+  /* -------------------------------------------------------------------------- */
+
+  // update this code accordingly so that it matches with key-value pairs that
+  // you have in your line of code
+
+  const handleLikeClick = ({ id, isLiked, user }) => {
+    const token = localStorage.getItem("jwt");
+    console.log(isLiked);
+    // Check if this card is now liked
+    isLiked
+      ? // if so, send a request to add the user's id to the card's likes array
+        auth
+          // the first argument is the card's id
+          .removeCardLike(id, token)
+          .then((updatedCard) => {
+            console.log(updatedCard);
+            console.log(items);
+            setItems((items) =>
+              items.map((c) => (c._id === id ? updatedCard.doc : c))
+            );
+          })
+          .catch((err) => console.log(err))
+      : // if not, send a request to remove the user's id from the card's likes array
+        auth
+          // the first argument is the card's id
+          .addCardLike(id, token)
+          .then((updatedCard) => {
+            console.log(updatedCard);
+            console.log(items);
+            setItems((items) =>
+              items.map((c) => (c._id === id ? updatedCard.doc : c))
+            );
+          })
+          .catch((err) => console.log(err));
+  };
+
+  /* -------------------------------------------------------------------------- */
   /*                               handle submits                               */
   /* -------------------------------------------------------------------------- */
 
@@ -309,7 +346,6 @@ function App() {
 
   // console.log(setItems);
   console.log(items);
-
   // console.log(temp);
   console.log(currentTemperatureUnit);
   return (
@@ -327,6 +363,7 @@ function App() {
             <Main
               weatherTemp={temp}
               onSelectCard={handleSelectedCard}
+              onCardLike={handleLikeClick}
               temp={temp}
               items={items}
             />
@@ -337,6 +374,7 @@ function App() {
               onSelectCard={handleSelectedCard}
               onCreateModal={handleCreateModal}
               onEditModal={handleEditModal}
+              onCardLike={handleLikeClick}
             />
           </ProtectedRoute>
         </Switch>
@@ -384,5 +422,4 @@ function App() {
     </CurrentUserContext.Provider>
   );
 }
-
 export default App;

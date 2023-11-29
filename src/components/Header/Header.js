@@ -9,13 +9,13 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 const Header = ({ onCreateModal, onRegisterModal, onLoginModal }) => {
   const todaysDate = new Date();
   const userValue = React.useContext(CurrentUserContext);
-  console.log(userValue);
+  // console.log(userValue);
   const userDataValue = userValue.currentUser;
   const userName = userDataValue.username;
   const avatar = userDataValue.avatar;
 
-  console.log(userName);
-  console.log("Header");
+  // console.log(userName);
+  // console.log("Header");
   const Name = "placeholder";
 
   return (

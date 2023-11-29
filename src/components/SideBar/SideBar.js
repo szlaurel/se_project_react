@@ -5,13 +5,13 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 const SideBar = ({ onEditModal }) => {
   const userValue = React.useContext(CurrentUserContext);
-  console.log(userValue);
+  // console.log(userValue);
 
   const userDataValue = userValue.currentUser;
   const userName = userDataValue.username;
   const avatar = userDataValue.avatar;
 
-  console.log(userName, avatar);
+  // console.log(userName, avatar);
 
   return (
     <div>

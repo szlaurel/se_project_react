@@ -52,6 +52,7 @@
   top: 85px;
   left: 70px;
   margin: auto;
+  cursor: pointer;
 }
 
 .item-card__like-button_active {

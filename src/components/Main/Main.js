@@ -7,9 +7,9 @@ import "./Main.css";
 import React from "react";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 
-function Main({ weatherTemp, onSelectCard, items }) {
+function Main({ weatherTemp, onSelectCard, items, onCardLike }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
-  console.log(currentTemperatureUnit);
+  // console.log(currentTemperatureUnit);
   // this VV code doesnt work becuase i dont have the right loader for this file type but we have a fix for it.
   const temp = weatherTemp?.temperature?.[currentTemperatureUnit] || 999;
 
@@ -54,19 +54,19 @@ function Main({ weatherTemp, onSelectCard, items }) {
 
   const weatherType = getWeatherType(weatherTemp, currentTemperatureUnit);
 
-  console.log(weatherType);
+  // console.log(weatherType);
 
-  console.log(temp);
+  // console.log(temp);
 
   const filteredCards = items.filter((item) => {
     // uncomment this to check if the items show up VVVV
     // console.log(item);
     // theres an error that occurs when adding clothes and the error happens here.
-    console.log(item.weather);
+    // console.log(item.weather);
     return item.weather.toLowerCase() === weatherType;
   });
 
-  console.log(filteredCards);
+  // console.log(filteredCards);
   return (
     <main className="main">
       <WeatherCard
@@ -81,7 +81,12 @@ function Main({ weatherTemp, onSelectCard, items }) {
         <div className="item-card__items main-section__image">
           {filteredCards.map((item, index) => {
             return (
-              <ItemCard key={index} item={item} onSelectCard={onSelectCard} />
+              <ItemCard
+                key={index}
+                item={item}
+                onSelectCard={onSelectCard}
+                onCardLike={onCardLike}
+              />
             );
           })}
         </div>

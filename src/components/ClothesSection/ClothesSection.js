@@ -1,17 +1,17 @@
 import React from "react";
 import ItemCard from "../ItemCard/ItemCard";
 import "./ClothesSection.css";
-import ItemModal from "../ItemModal/ItemModal";
+
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-const ClothesSection = ({ items, onSelectCard, onCreateModal }) => {
+const ClothesSection = ({ items, onSelectCard, onCreateModal, onCardLike }) => {
   const userValue = React.useContext(CurrentUserContext);
   const userId = userValue.currentUser.id;
   // const cardOwner = items.owner;
 
-  console.log(userId);
-  console.log(items);
-  console.log("clothesection im here");
+  // console.log(userId);
+  // console.log(items);
+  // console.log("clothesection im here");
 
   // const filterOwnerCardsById = items.filter((item) => item.owner === userId);
   // console.log(filterOwnerCardsById);
@@ -22,7 +22,7 @@ const ClothesSection = ({ items, onSelectCard, onCreateModal }) => {
 
   const filteredItems = filterOwnerCardsById(items, userId);
 
-  console.log(filteredItems);
+  // console.log(filteredItems);
 
   // console.log(items)
 
@@ -37,7 +37,12 @@ const ClothesSection = ({ items, onSelectCard, onCreateModal }) => {
       <div className="clothes-section__cards">
         {filteredItems.map((item, index) => {
           return (
-            <ItemCard key={index} item={item} onSelectCard={onSelectCard} />
+            <ItemCard
+              key={index}
+              item={item}
+              onSelectCard={onSelectCard}
+              onCardLike={onCardLike}
+            />
           );
         })}
       </div>
