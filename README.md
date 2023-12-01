@@ -6,6 +6,8 @@ The idea of the application is pretty simple - we make a call to an API, which t
 
 ## Links
 
+- [Link-to-back-end](https://github.com/szlaurel/se_project_express)
+
 ## Technologies used
 
 HTML
@@ -23,4 +25,4 @@ HTML and Javascript come together via REACT making easy and simple to design wit
 - [Screenshot2](ss-add_clothes.png)
 - [Screenshot3](ss-item_modal.png)
 - [Link-to-website](https://szlaurel.github.io/se_project_react)
-- [Link-to-back-end](https://github.com/szlaurel/se_project_aroundtheus)
+- [Link-to-back-end](https://github.com/szlaurel/se_project_express)
