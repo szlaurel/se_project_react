@@ -315,9 +315,10 @@ function App() {
     auth
       .authorize({ email: email, password: password })
       .then((res) => {
+        if (res == undefined) {
+          return;
+        }
         localStorage.setItem("jwt", res.token);
-        console.log(res.token);
-        console.log(res);
         setLoggedIn(true);
         setCurrentUser({ ...currentUser });
       })
@@ -328,6 +329,35 @@ function App() {
         }, 10);
       });
   };
+
+  /* -------------------------------------------------------------------------- */
+  /*                       old handleLogin code for backup                      */
+  /* -------------------------------------------------------------------------- */
+
+  // const handleLogin = (values) => {
+  //   // debugger
+  //   const email = values.email;
+  //   const password = values.password;
+
+  //   if (!email || !password) {
+  //     return;
+  //   }
+  //   auth
+  //     .authorize({ email: email, password: password })
+  //     .then((res) => {
+  //       localStorage.setItem("jwt", res.token);
+  //       console.log(res.token);
+  //       console.log(res);
+  //       setLoggedIn(true);
+  //       setCurrentUser({ ...currentUser });
+  //     })
+  //     .then(() => {
+  //       history.push("/profile");
+  //       setTimeout(() => {
+  //         window.location.reload();
+  //       }, 10);
+  //     });
+  // };
 
   const handleAddItem = (values) => {
     const itemName = values.name;
