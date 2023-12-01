@@ -29,6 +29,11 @@ import EditProfileModal from "../EditProfileModal/EditProfileModal";
 
 function App() {
   const weatherTemp = "75°F";
+
+  /* -------------------------------------------------------------------------- */
+  /*                          useStates and useHistory                          */
+  /* -------------------------------------------------------------------------- */
+
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [temp, setTemp] = useState(0);
@@ -37,9 +42,7 @@ function App() {
   const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState("");
   const [deleteCard, setDeleteCard] = useState("");
-
   const [loggedIn, setLoggedIn] = useState(false);
-
   const [userData, setUserData] = useState({});
 
   const history = useHistory();
@@ -107,27 +110,66 @@ function App() {
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
     if ("jwt") {
-      auth.getContent(jwt).then((res) => {
-        if (res) {
-          console.log(res.data.email);
-          const userData = {
-            username: res.data.name,
-            email: res.data.email,
-            avatar: res.data.avatar,
-            id: res.data._id,
-          };
-          setUserData(userData);
-          setLoggedIn(true);
-          setCurrentUser(userData);
-          history.push("/profile");
-        } else if (!res) {
-          return;
-        } else {
-          return;
-        }
-      });
+      auth
+        .getContent(jwt)
+        .then((res) => {
+          if (res.data === undefined) {
+            return;
+          } else if (res) {
+            console.log(res.data?.email);
+            const userData = {
+              username: res.data?.name,
+              email: res.data?.email,
+              avatar: res.data?.avatar,
+              id: res.data?._id,
+            };
+            setUserData(userData);
+            setLoggedIn(true);
+            setCurrentUser(userData);
+            history.push("/profile");
+          } else {
+            return;
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     }
-  }, [loggedIn]);
+  }, []);
+
+  /* -------------------------------------------------------------------------- */
+  /*                      Old useEffect code for logging in                     */
+  /* -------------------------------------------------------------------------- */
+  // useEffect(() => {
+  //   const jwt = localStorage.getItem("jwt");
+  //   if ("jwt") {
+  //     auth
+  //       .getContent(jwt)
+  //       .then((res) => {
+  //         if (res) {
+  //           console.log(res.message);
+  //           console.log(res.data?.email);
+  //           const userData = {
+  //             username: res.data?.name,
+  //             email: res.data?.email,
+  //             avatar: res.data?.avatar,
+  //             id: res.data?._id,
+  //           };
+  //           setUserData(userData);
+  //           setLoggedIn(true);
+  //           setCurrentUser(userData);
+  //           history.push("/profile");
+  //         } else if (res.message === "Authorization required") {
+  //           return;
+  //         } else {
+  //           return;
+  //         }
+  //       })
+  //       .catch((e) => {
+  //         console.log(e);
+  //       });
+  //   }
+  // }, []);
 
   /* -------------------------------------------------------------------------- */
   /*                             handle open modals                             */
@@ -198,7 +240,7 @@ function App() {
     console.log(isLiked);
     // Check if this card is now liked
     isLiked
-      ? // if so, send a request to add the user's id to the card's likes array
+      ? // if not, send a request to remove the user's id from the card's likes array
         auth
           // the first argument is the card's id
           .removeCardLike(id, token)
@@ -210,7 +252,7 @@ function App() {
             );
           })
           .catch((err) => console.log(err))
-      : // if not, send a request to remove the user's id from the card's likes array
+      : // if so, send a request to add the user's id to the card's likes array
         auth
           // the first argument is the card's id
           .addCardLike(id, token)
@@ -265,8 +307,8 @@ function App() {
       return;
     }
     auth.authorize({ email: email, password: password }).then((res) => {
-      // localStorage.setItem("jwt", res.token);
-      // console.log(res.token);
+      localStorage.setItem("jwt", res.token);
+      console.log(res.token);
       console.log(res);
       setLoggedIn(true);
       setUserData(res.userData);
@@ -322,6 +364,20 @@ function App() {
     if (currentTemperatureUnit === "C") setCurrentTemperatureUnit("F");
   };
 
+  const handleLogOut = () => {
+    localStorage.removeItem("jwt");
+    if (loggedIn === true) {
+      setLoggedIn(false);
+      history.push("/");
+    }
+  };
+  // debugger;
+  console.log(loggedIn);
+
+  /* -------------------------------------------------------------------------- */
+  /*                 useEffect for getting the forecast once VVV                */
+  /* -------------------------------------------------------------------------- */
+
   useEffect(() => {
     getForecastWeather()
       .then((data) => {
@@ -344,9 +400,8 @@ function App() {
       .finally(() => console.log("done"));
   }, []);
 
-  // console.log(setItems);
   console.log(items);
-  // console.log(temp);
+
   console.log(currentTemperatureUnit);
   return (
     <CurrentUserContext.Provider value={{ currentUser }}>
@@ -375,6 +430,7 @@ function App() {
               onCreateModal={handleCreateModal}
               onEditModal={handleEditModal}
               onCardLike={handleLikeClick}
+              handleLogOut={handleLogOut}
             />
           </ProtectedRoute>
         </Switch>
@@ -393,7 +449,6 @@ function App() {
             isOpen={activeModal === "login"}
             onClose={handleCloseModal}
             handleLogin={handleLogin}
-            // onLoggedInUser={onLoggedInUser}
           ></LoginModal>
         )}
         {activeModal === "create" && (

@@ -72,8 +72,11 @@ export const weatherOptions = [
 /* -------------------------------------------------------------------------- */
 
 export const APIkey = "544989dd091e1898f7c9947468dd5801";
-export const latitude = 44.34;
-export const longitude = 10.99;
+export const latitude = 34.53;
+export const longitude = -117.292763;
+
+// export const latitude = 44.34;
+// export const longitude = 10.99;
 
 // test latitude and longitude values
 

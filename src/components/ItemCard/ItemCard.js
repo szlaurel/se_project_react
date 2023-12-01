@@ -4,15 +4,10 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 const ItemCard = ({ item, onSelectCard, onCardLike }) => {
   const userValue = React.useContext(CurrentUserContext);
-  // console.log(onCardLike);
-  // console.log(item._id);
-  console.log(item);
 
   const isLiked = item.likes.some((userId) => {
     return userId === userValue.currentUser.id;
   });
-  console.log(isLiked);
-  console.log(item.likes);
 
   const handleLikeClick = () => {
     onCardLike({ id: item._id, isLiked: isLiked });

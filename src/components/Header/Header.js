@@ -5,17 +5,17 @@ import avatarlogo from "../../images/Avatarlogo.svg";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { useContext } from "react";
 
 const Header = ({ onCreateModal, onRegisterModal, onLoginModal }) => {
   const todaysDate = new Date();
   const userValue = React.useContext(CurrentUserContext);
+
   // console.log(userValue);
   const userDataValue = userValue.currentUser;
   const userName = userDataValue.username;
   const avatar = userDataValue.avatar;
 
-  // console.log(userName);
-  // console.log("Header");
   const Name = "placeholder";
 
   return (
