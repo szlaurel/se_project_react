@@ -124,9 +124,9 @@ function App() {
               id: res.data?._id,
             };
             setUserData(userData);
-            setLoggedIn(true);
             setCurrentUser(userData);
-            // history.push("/profile");
+            setLoggedIn(true);
+            history.push("/profile");
           } else {
             return;
           }
@@ -313,11 +313,13 @@ function App() {
         console.log(res.token);
         console.log(res);
         setLoggedIn(true);
-        setUserData(res.userData);
         setCurrentUser({ ...currentUser });
       })
       .then(() => {
         history.push("/profile");
+        setTimeout(() => {
+          window.location.reload();
+        }, 10);
       });
   };
 
