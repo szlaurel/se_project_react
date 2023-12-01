@@ -7,7 +7,12 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useContext } from "react";
 
-const Header = ({ onCreateModal, onRegisterModal, onLoginModal }) => {
+const Header = ({
+  onCreateModal,
+  onRegisterModal,
+  onLoginModal,
+  isLoggedIn,
+}) => {
   const todaysDate = new Date();
   const userValue = React.useContext(CurrentUserContext);
 
@@ -29,7 +34,7 @@ const Header = ({ onCreateModal, onRegisterModal, onLoginModal }) => {
         <div>{todaysDate.toLocaleDateString()}</div>
       </div>
       <div>
-        {userValue ? (
+        {isLoggedIn ? (
           <div className="header__avatar_container">
             <ToggleSwitch />
             <div>

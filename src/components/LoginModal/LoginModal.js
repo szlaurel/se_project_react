@@ -18,6 +18,8 @@ const LoginModal = ({
 
   const [password, setPassword] = useState("");
 
+  const history = useHistory();
+
   const handleSubmit = (e) => {
     // debugger;
     e.preventDefault();
@@ -25,7 +27,7 @@ const LoginModal = ({
     setEmail("");
     setPassword("");
     handleCloseModal();
-    console.log({ email: email, password: password });
+    // console.log({ email: email, password: password });
     console.log("the info got sent and the handle submit works");
 
     // if (!email || !password) {

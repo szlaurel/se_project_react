@@ -126,7 +126,7 @@ function App() {
             setUserData(userData);
             setLoggedIn(true);
             setCurrentUser(userData);
-            history.push("/profile");
+            // history.push("/profile");
           } else {
             return;
           }
@@ -306,14 +306,19 @@ function App() {
     if (!email || !password) {
       return;
     }
-    auth.authorize({ email: email, password: password }).then((res) => {
-      localStorage.setItem("jwt", res.token);
-      console.log(res.token);
-      console.log(res);
-      setLoggedIn(true);
-      setUserData(res.userData);
-      setCurrentUser({ ...currentUser });
-    });
+    auth
+      .authorize({ email: email, password: password })
+      .then((res) => {
+        localStorage.setItem("jwt", res.token);
+        console.log(res.token);
+        console.log(res);
+        setLoggedIn(true);
+        setUserData(res.userData);
+        setCurrentUser({ ...currentUser });
+      })
+      .then(() => {
+        history.push("/profile");
+      });
   };
 
   const handleAddItem = (values) => {
@@ -412,6 +417,7 @@ function App() {
           onCreateModal={handleCreateModal}
           onRegisterModal={handleRegisterModal}
           onLoginModal={handleLoginModal}
+          isLoggedIn={loggedIn}
         />
         <Switch>
           <Route exact path="/">
