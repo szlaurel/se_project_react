@@ -19,6 +19,12 @@ const ItemCard = ({ item, onSelectCard, onCardLike }) => {
     isLiked ? "item-card__like-button_active" : "item-card__like-button"
   }`;
 
+  const userId = userValue.currentUser.id;
+
+  const itemCardLikeButtonHidden = `item-card__like-button ${
+    !userId ? "item-card__like-button_hidden" : "item-card__like-button"
+  }`;
+
   return (
     <div>
       <div className="item-card__container">
@@ -31,7 +37,9 @@ const ItemCard = ({ item, onSelectCard, onCardLike }) => {
         <h3 className="item-card__name">{item.name}</h3>
         <button
           type="button"
-          className={itemCardLikeButtonClassName}
+          className={
+            userId ? itemCardLikeButtonClassName : itemCardLikeButtonHidden
+          }
           onClick={handleLikeClick}
         ></button>
       </div>
@@ -61,3 +69,26 @@ export default ItemCard;
 //     </div>
 //   );
 // };
+
+/* -------------------------------------------------------------------------- */
+/*                  latest itemcard code backup just in case                  */
+/* -------------------------------------------------------------------------- */
+
+// return (
+//   <div>
+//     <div className="item-card__container">
+//       <img
+//         className="item-card__image"
+//         src={item.imageUrl}
+//         alt={item.name}
+//         onClick={() => onSelectCard(item)}
+//       />
+//       <h3 className="item-card__name">{item.name}</h3>
+//       <button
+//         type="button"
+//         className={itemCardLikeButtonClassName}
+//         onClick={handleLikeClick}
+//       ></button>
+//     </div>
+//   </div>
+// );

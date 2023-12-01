@@ -13,6 +13,26 @@
   border-radius: 75%;
 }
 
+.sidebar__logo-alternate {
+  width: 40px;
+  height: 40px;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.2);
+  font-family: "CabinetGrotesk", arial, sans-serif;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.5);
+  color: rgba(255, 255, 255, 1);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 25px;
+  letter-spacing: 0em;
+  text-align: center;
+  margin-right: 16px;
+}
+
 .sidebar__name {
   font-family: "CabinetGrotesk", arial, sans-serif;
   font-size: 20px;

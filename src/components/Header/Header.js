@@ -6,12 +6,14 @@ import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useContext } from "react";
+import { useState } from "react";
 
 const Header = ({
   onCreateModal,
   onRegisterModal,
   onLoginModal,
   isLoggedIn,
+  firstNameInitial,
 }) => {
   const todaysDate = new Date();
   const userValue = React.useContext(CurrentUserContext);
@@ -20,8 +22,6 @@ const Header = ({
   const userDataValue = userValue.currentUser;
   const userName = userDataValue.username;
   const avatar = userDataValue.avatar;
-
-  const Name = "placeholder";
 
   return (
     <header className="header">
@@ -47,12 +47,18 @@ const Header = ({
               </button>
             </div>
             <Link to="/profile">{userName}</Link>
-            <img
-              src={avatar}
-              alt="logo"
-              className="header__avatar"
-              placeholder="firstletter"
-            />
+            {avatar ? (
+              <img
+                src={avatar}
+                alt="logo"
+                className="header__avatar"
+                placeholder="logo"
+              />
+            ) : (
+              <span alt="alt logo" className="header__avatar-alternate">
+                {firstNameInitial}
+              </span>
+            )}
           </div>
         ) : (
           <div className="header__nav-bar">

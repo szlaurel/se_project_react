@@ -59,3 +59,7 @@
   background: transparent url(../../images/likebuttonactive.svg) center
     no-repeat;
 }
+
+.item-card__like-button_hidden {
+  visibility: hidden;
+}

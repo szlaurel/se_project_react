@@ -44,6 +44,7 @@ function App() {
   const [deleteCard, setDeleteCard] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
   const [userData, setUserData] = useState({});
+  const [splitUserName, setSplitUserName] = useState([]);
 
   const history = useHistory();
 
@@ -126,6 +127,7 @@ function App() {
             setUserData(userData);
             setCurrentUser(userData);
             setLoggedIn(true);
+            setSplitUserName(userData.username.split(""));
             history.push("/profile");
           } else {
             return;
@@ -136,6 +138,10 @@ function App() {
         });
     }
   }, []);
+
+  const firstNameInitial = splitUserName[0] ? splitUserName[0][0] : "";
+
+  console.log(firstNameInitial);
 
   /* -------------------------------------------------------------------------- */
   /*                      Old useEffect code for logging in                     */
@@ -375,7 +381,7 @@ function App() {
     localStorage.removeItem("jwt");
     if (loggedIn === true) {
       setLoggedIn(false);
-      history.push("/");
+      // history.push("/");
     }
   };
   // debugger;
@@ -420,6 +426,7 @@ function App() {
           onRegisterModal={handleRegisterModal}
           onLoginModal={handleLoginModal}
           isLoggedIn={loggedIn}
+          firstNameInitial={firstNameInitial}
         />
         <Switch>
           <Route exact path="/">
@@ -439,6 +446,7 @@ function App() {
               onEditModal={handleEditModal}
               onCardLike={handleLikeClick}
               handleLogOut={handleLogOut}
+              firstNameInitial={firstNameInitial}
             />
           </ProtectedRoute>
         </Switch>

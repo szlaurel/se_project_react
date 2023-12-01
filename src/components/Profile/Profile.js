@@ -13,6 +13,7 @@ const Profile = ({
   onEditModal,
   onCardLike,
   handleLogOut,
+  firstNameInitial,
 }) => {
   const userValue = React.useContext(CurrentUserContext);
   // const AllClothingItems = items.filter((item) => {
@@ -23,7 +24,11 @@ const Profile = ({
   return (
     <div className="profile__main">
       <section>
-        <SideBar onEditModal={onEditModal} handleLogOut={handleLogOut} />
+        <SideBar
+          onEditModal={onEditModal}
+          handleLogOut={handleLogOut}
+          firstNameInitial={firstNameInitial}
+        />
       </section>
       <section>
         <ClothesSection

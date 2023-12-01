@@ -4,12 +4,19 @@ import "./SideBar.css";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
-const SideBar = ({ onEditModal, handleLogOut }) => {
+const SideBar = ({ onEditModal, handleLogOut, firstNameInitial }) => {
   const userValue = React.useContext(CurrentUserContext);
   console.log(userValue);
   const userDataValue = userValue.currentUser;
   const userName = userDataValue.username;
   const avatar = userDataValue.avatar;
+
+  const onSubmitLogOut = () => {
+    handleLogOut();
+    setTimeout(() => {
+      window.location.reload();
+    }, 10);
+  };
 
   // console.log(userName, avatar);
 
@@ -18,7 +25,13 @@ const SideBar = ({ onEditModal, handleLogOut }) => {
   return (
     <div>
       <div className="sidebar__main">
-        <img src={avatar} alt="logo" className="sidebar__logo" />
+        {avatar ? (
+          <img src={avatar} alt="logo" className="sidebar__logo" />
+        ) : (
+          <span src="alt logo" className="sidebar__logo-alternate">
+            {firstNameInitial}
+          </span>
+        )}
         <div className="sidebar__name">{userName}</div>
       </div>
       <div className="sidebar__buttons">
@@ -31,7 +44,7 @@ const SideBar = ({ onEditModal, handleLogOut }) => {
         </button>
         <button
           type="text"
-          onClick={handleLogOut}
+          onClick={onSubmitLogOut}
           className="sidebar__log-out_button"
         >
           Log Out

@@ -18,7 +18,24 @@ const LoginModal = ({
 
   const [password, setPassword] = useState("");
 
+  const [emailLabel, setEmailLabel] = useState("");
+  const [passwordLabel, setPasswordLabel] = useState("");
+
   const history = useHistory();
+
+  // const handleSubmit = (e) => {
+  //   // debugger;
+  //   e.preventDefault();
+  //   if (!email || !password) {
+  //     setEmailLabel("Incorrect Email");
+  //   } else {
+  //     handleLogin({ email: email, password: password });
+  //     setEmail("");
+  //     setPassword("");
+  //     handleCloseModal();
+  //     console.log("the info got sent and the handle submit works");
+  //   }
+  // };
 
   const handleSubmit = (e) => {
     // debugger;
@@ -27,21 +44,7 @@ const LoginModal = ({
     setEmail("");
     setPassword("");
     handleCloseModal();
-    // console.log({ email: email, password: password });
     console.log("the info got sent and the handle submit works");
-
-    // if (!email || !password) {
-    //     return;
-    //   }
-    //   auth.authorize(email, password).then((data) => {
-    //     if (data.jwt) {
-    //       setEmail("");
-    //       setPassword("");
-    //       handleLogin();
-    //       history.push("/profile");
-    //     }
-    //   });
-    //the code that goes here is when the button is pushed, the user gets logged in and gets redirected to the mainpage
   };
 
   return (
