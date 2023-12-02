@@ -5,7 +5,12 @@ import "./RegisterModal.css";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import * as auth from "../../utils/auth";
 
-const RegisterModal = ({ handleCloseModal, isOpen, handleRegister }) => {
+const RegisterModal = ({
+  handleCloseModal,
+  isOpen,
+  handleRegister,
+  alternateModalOpen,
+}) => {
   console.log("some string");
   const history = useHistory();
   const [name, setName] = useState("");
@@ -56,40 +61,54 @@ const RegisterModal = ({ handleCloseModal, isOpen, handleRegister }) => {
       isOpen={isOpen}
       onSubmit={handleSubmit}
       alternateButtonText="or Log In"
+      alternateModalOpen={alternateModalOpen}
+      idForEachCloseButton={"register"}
     >
-      <label className="modal__label">Email*</label>
+      <label className="modal__label" htmlFor="email">
+        Email*
+      </label>
       <input
         name="email"
         className="modal__input"
         placeholder="Email"
         type="email"
+        id="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <label className="modal__label">Password*</label>
+      <label className="modal__label" htmlFor="password">
+        Password*
+      </label>
       <input
         name="password"
         className="modal__input"
         placeholder="Password"
         type="password"
+        id="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <label className="modal__label">Name*</label>
+      <label className="modal__label" htmlFor="name">
+        Name*
+      </label>
       <input
         name="name"
         className="modal__input"
         placeholder="Name"
+        id="name"
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      <label className="modal__label">Avatar URL*</label>
+      <label className="modal__label" htmlFor="avatar">
+        Avatar URL*
+      </label>
       <input
         name="link"
         className="modal__input"
         placeholder="Avatar URL"
         type="url"
+        id="avatar"
         value={link}
         onChange={(e) => setUrl(e.target.value)}
       />

@@ -3,8 +3,18 @@
 }
 
 .item-modal__close-button {
-  bottom: calc(90% + 4%);
-  left: calc(90% + 3%);
+  /* bottom: calc(90% + 4%);
+  left: calc(90% + 3%); */
+  position: absolute;
+  background: url("../../images/newclosebutton.svg");
+  background-color: transparent;
+  background-size: contain;
+  bottom: calc(83% + 5%);
+  left: calc(85% + 5%);
+  width: 20px;
+  height: 20px;
+  border: none;
+  cursor: pointer;
 }
 
 .item-modal__image {

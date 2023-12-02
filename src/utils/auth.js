@@ -1,3 +1,4 @@
+import { processServerRequest } from "./weatherApi";
 export const BASE_URL = "http://localhost:3001";
 
 /* -------------------------------------------------------------------------- */
@@ -14,11 +15,7 @@ export const register = ({ name, link, email, password }) => {
     },
     body: JSON.stringify({ name, avatar: link, email, password }),
   })
-    .then((response) => {
-      if (response.status === 201) {
-        return response.json();
-      }
-    })
+    .then(processServerRequest)
     .then((res) => {
       localStorage.setItem(
         "user",
@@ -31,9 +28,6 @@ export const register = ({ name, link, email, password }) => {
       );
       //return the parsed data to the client
       return res;
-    })
-    .catch((e) => {
-      console.log(e);
     });
 };
 
@@ -57,7 +51,7 @@ export const authorize = ({ email, password }) => {
     },
     body: JSON.stringify({ email, password }),
   })
-    .then((response) => response.json())
+    .then(processServerRequest)
     .then((res) => {
       // console.log(res.token);
       if (res.token) {
@@ -76,9 +70,6 @@ export const authorize = ({ email, password }) => {
       // in order to retrieve something from "localStorage"
       // you would need to do "localStorage.getItem("jwt")"
       // because "jwt" is the key in this case
-    })
-    .catch((e) => {
-      console.log(e);
     });
 };
 
@@ -94,72 +85,60 @@ export const getContent = (token) => {
       authorization: `Bearer ${token}`,
     },
   })
-    .then((res) => res.json())
-    .then((data) => data)
-    .catch((e) => {
-      console.log(e);
-    });
+    .then(processServerRequest)
+    .then((data) => data);
 };
 
 /* -------------------------------------------------------------------------- */
 /*                            Edit profile api call                           */
 /* -------------------------------------------------------------------------- */
 
-export const updateProfile = ({ name, avatar }, token) => {
-  return fetch(`${BASE_URL}/users/me`, {
-    method: "PATCH",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({ name, avatar }),
-  })
-    .then((res) => res.json())
-    .then((data) => data)
-    .catch((e) => {
-      console.log(e);
-    });
-};
+// export const updateProfile = ({ name, avatar }, token) => {
+//   return fetch(`${BASE_URL}/users/me`, {
+//     method: "PATCH",
+//     headers: {
+//       Accept: "application/json",
+//       "Content-Type": "application/json",
+//       authorization: `Bearer ${token}`,
+//     },
+//     body: JSON.stringify({ name, avatar }),
+//   })
+//     .then(processServerRequest)
+//     .then((data) => data);
+// };
 
 /* -------------------------------------------------------------------------- */
 /*                             add card like code                             */
 /* -------------------------------------------------------------------------- */
-export const addCardLike = (id, token) => {
-  return fetch(`${BASE_URL}/items/${id}/likes`, {
-    method: "PUT",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
-    },
-  })
-    .then((res) => res.json())
-    .then((data) => data)
-    .catch((e) => {
-      console.log(e);
-    });
-};
+// export const addCardLike = (id, token) => {
+//   return fetch(`${BASE_URL}/items/${id}/likes`, {
+//     method: "PUT",
+//     headers: {
+//       Accept: "application/json",
+//       "Content-Type": "application/json",
+//       authorization: `Bearer ${token}`,
+//     },
+//   })
+//     .then(processServerRequest)
+//     .then((data) => data);
+// };
 
 /* -------------------------------------------------------------------------- */
 /*                            remove card like code                           */
 /* -------------------------------------------------------------------------- */
 
-export const removeCardLike = (id, token) => {
-  return fetch(`${BASE_URL}/items/${id}/likes`, {
-    method: "DELETE",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
-    },
-  })
-    .then((res) => res.json())
-    .then((data) => data)
-    .catch((e) => {
-      console.log(e);
-    });
-};
+// export const removeCardLike = (id, token) => {
+//   return fetch(`${BASE_URL}/items/${id}/likes`, {
+//     method: "DELETE",
+//     headers: {
+//       Accept: "application/json",
+//       "Content-Type": "application/json",
+//       authorization: `Bearer ${token}`,
+//     },
+//   })
+//     .then(processServerRequest)
+//     .then((data) => data);
+// };
 
 // i actually don't know if the useEffect statement goes here im going to have recheck this again
 /* -------------------------------------------------------------------------- */

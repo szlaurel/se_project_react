@@ -1,7 +1,10 @@
+import { processServerRequest } from "./weatherApi";
+
 class Api {
-  constructor({ baseUrl, headers }) {
+  constructor({ baseUrl, headers, processServerRequest }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
+    this._processServerRequest = processServerRequest;
   }
 
   _checkResponse(res) {
@@ -47,6 +50,45 @@ class Api {
       },
     }).then(this._checkResponse);
   }
+
+  updateProfile({ name, avatar }, token) {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: "PATCH",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ name, avatar }),
+    })
+      .then(this._processServerRequest)
+      .then((data) => data);
+  }
+  addCardLike(id, token) {
+    return fetch(`${this._baseUrl}/items/${id}/likes`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    })
+      .then(this._processServerRequest)
+      .then((data) => data);
+  }
+
+  removeCardLike(id, token) {
+    return fetch(`${this._baseUrl}/items/${id}/likes`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    })
+      .then(this._processServerRequest)
+      .then((data) => data);
+  }
 }
 
 const baseUrl = "http://localhost:3001";
@@ -58,6 +100,7 @@ const baseUrl = "http://localhost:3001";
 export const api = new Api({
   baseUrl: baseUrl,
   headers: { "Content-Type": "application/json" },
+  processServerRequest: processServerRequest,
 });
 
 // in the end i just decided to hardcode each of the requests that needed authorization bearer

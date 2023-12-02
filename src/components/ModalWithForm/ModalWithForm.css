@@ -21,7 +21,7 @@
 }
 
 .modal__close {
-  position: absolute;
+  position: relative;
   background: url("../../images/newclosebutton.svg");
   background-color: transparent;
   background-size: contain;
@@ -48,6 +48,30 @@
   border: none;
 }
 
+.modal__close[id="login"] {
+  position: absolute;
+  background: url("../../images/newclosebutton.svg");
+  background-color: transparent;
+  background-size: contain;
+  bottom: calc(83% + 5%);
+  left: calc(85% + 5%);
+  width: 20px;
+  height: 20px;
+  border: none;
+}
+
+.modal__close[id="register"] {
+  position: absolute;
+  background: url("../../images/newclosebutton.svg");
+  background-color: transparent;
+  background-size: contain;
+  bottom: calc(83% + 5%);
+  left: calc(85% + 5%);
+  width: 20px;
+  height: 20px;
+  border: none;
+}
+
 .modal__form {
   display: flex;
   flex-direction: column;
@@ -56,6 +80,7 @@
 
 .modal__label {
   margin-bottom: 8px;
+  cursor: pointer;
 }
 
 .modal__input {

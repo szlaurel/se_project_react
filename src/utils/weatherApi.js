@@ -2,7 +2,7 @@
 
 import { APIkey, latitude, longitude } from "./constants";
 
-const processServerRequest = (res) => {
+export const processServerRequest = (res) => {
   if (res.ok) {
     return res.json();
   }

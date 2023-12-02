@@ -26,23 +26,21 @@ const ItemCard = ({ item, onSelectCard, onCardLike }) => {
   }`;
 
   return (
-    <div>
-      <div className="item-card__container">
-        <img
-          className="item-card__image"
-          src={item.imageUrl}
-          alt={item.name}
-          onClick={() => onSelectCard(item)}
-        />
-        <h3 className="item-card__name">{item.name}</h3>
-        <button
-          type="button"
-          className={
-            userId ? itemCardLikeButtonClassName : itemCardLikeButtonHidden
-          }
-          onClick={handleLikeClick}
-        ></button>
-      </div>
+    <div className="item-card__container">
+      <img
+        className="item-card__image"
+        src={item.imageUrl}
+        alt={item.name}
+        onClick={() => onSelectCard(item)}
+      />
+      <h3 className="item-card__name">{item.name}</h3>
+      <button
+        type="button"
+        className={
+          userId ? itemCardLikeButtonClassName : itemCardLikeButtonHidden
+        }
+        onClick={handleLikeClick}
+      ></button>
     </div>
   );
 };

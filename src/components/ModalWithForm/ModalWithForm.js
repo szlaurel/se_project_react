@@ -10,6 +10,8 @@ const ModalWithForm = ({
   name,
   isOpen,
   onSubmit,
+  alternateModalOpen,
+  idForEachCloseButton,
 }) => {
   // console.log("modalwithform");
   return (
@@ -19,7 +21,7 @@ const ModalWithForm = ({
           type="button"
           onClick={onClose}
           className="modal__close"
-          id="close-garment-modal"
+          id={idForEachCloseButton}
         ></button>
         <h3 className="modal__title">{title}</h3>
         <form className="modal__form" onSubmit={onSubmit}>
@@ -28,7 +30,11 @@ const ModalWithForm = ({
             <button type="submit" className="modal__button-submit">
               {buttonText}
             </button>
-            <button type="submit" className="modal__button-alternate">
+            <button
+              type="button"
+              className="modal__button-alternate"
+              onClick={alternateModalOpen}
+            >
               {alternateButtonText}
             </button>
           </div>

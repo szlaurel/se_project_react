@@ -21,7 +21,7 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import Profile from "../Profile/Profile";
-import { api } from "../../utils/Api";
+import Api, { api } from "../../utils/Api";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import * as auth from "../../utils/auth";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
@@ -47,53 +47,6 @@ function App() {
   const [splitUserName, setSplitUserName] = useState([]);
 
   const history = useHistory();
-
-  // const handleLogin = (e) => {
-  //   // e.preventDefault();
-  //   //then(() => //set goes here)
-  //   setLoggedIn(true);
-  //   setUserData()
-  //   setCurrentUser({ ...currentUser });
-  // };
-
-  // const currentUser = {
-  //   loggedIn,
-  //   userData,
-  // };
-  // console.log(userData);
-
-  // console.log(loggedIn);
-
-  // console.log(currentUser);
-  // need to put useEffect in front of this token check first
-  /* -------------------------------------------------------------------------- */
-  /*            old useEffect code regarding locaStorage.getItem jwt            */
-  /* -------------------------------------------------------------------------- */
-  // useEffect(() => {
-  //   if (localStorage.getItem("jwt")) {
-  //     const jwt = localStorage.getItem("jwt");
-  //     auth
-  //       .getContent(jwt)
-  //       .then((res) => {
-  //         check the content
-  //         if (res) {
-  //           const userData = {
-  //             username: res.username,
-  //             password: res.password,
-  //           };
-  //           get rid of this console.log when you have what you need from userData
-
-  //           console.log(userData);
-  //         }
-  //         history.push("/profile");
-  //       })
-  //       .catch((e) => {
-  //         console.log(e);
-  //       });
-  //   }
-  // });
-
-  // need to rewrite the entire useEffect code to check
 
   /* -------------------------------------------------------------------------- */
   /*            new useEffect code regarding localstorage.getItem jwt           */
@@ -142,40 +95,6 @@ function App() {
   const firstNameInitial = splitUserName[0] ? splitUserName[0][0] : "";
 
   console.log(firstNameInitial);
-
-  /* -------------------------------------------------------------------------- */
-  /*                      Old useEffect code for logging in                     */
-  /* -------------------------------------------------------------------------- */
-  // useEffect(() => {
-  //   const jwt = localStorage.getItem("jwt");
-  //   if ("jwt") {
-  //     auth
-  //       .getContent(jwt)
-  //       .then((res) => {
-  //         if (res) {
-  //           console.log(res.message);
-  //           console.log(res.data?.email);
-  //           const userData = {
-  //             username: res.data?.name,
-  //             email: res.data?.email,
-  //             avatar: res.data?.avatar,
-  //             id: res.data?._id,
-  //           };
-  //           setUserData(userData);
-  //           setLoggedIn(true);
-  //           setCurrentUser(userData);
-  //           history.push("/profile");
-  //         } else if (res.message === "Authorization required") {
-  //           return;
-  //         } else {
-  //           return;
-  //         }
-  //       })
-  //       .catch((e) => {
-  //         console.log(e);
-  //       });
-  //   }
-  // }, []);
 
   /* -------------------------------------------------------------------------- */
   /*                             handle open modals                             */
@@ -247,7 +166,7 @@ function App() {
     // Check if this card is now liked
     isLiked
       ? // if not, send a request to remove the user's id from the card's likes array
-        auth
+        api
           // the first argument is the card's id
           .removeCardLike(id, token)
           .then((updatedCard) => {
@@ -259,7 +178,7 @@ function App() {
           })
           .catch((err) => console.log(err))
       : // if so, send a request to add the user's id to the card's likes array
-        auth
+        api
           // the first argument is the card's id
           .addCardLike(id, token)
           .then((updatedCard) => {
@@ -293,7 +212,6 @@ function App() {
       })
       .then((data) => {
         console.log(data);
-        handleCloseModal();
       })
       .catch((e) => {
         console.log("im in the catch for auth.register user");
@@ -323,41 +241,20 @@ function App() {
         setCurrentUser({ ...currentUser });
       })
       .then(() => {
+        handleCloseModal();
+      })
+      .then(() => {
         history.push("/profile");
-        setTimeout(() => {
-          window.location.reload();
-        }, 10);
-      });
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 10);
+      })
+      .catch((err) => {
+        console.log("an error has occured at handleLogin", err);
+      })
+      .finally(() => console.log("done"));
+    console.log(values);
   };
-
-  /* -------------------------------------------------------------------------- */
-  /*                       old handleLogin code for backup                      */
-  /* -------------------------------------------------------------------------- */
-
-  // const handleLogin = (values) => {
-  //   // debugger
-  //   const email = values.email;
-  //   const password = values.password;
-
-  //   if (!email || !password) {
-  //     return;
-  //   }
-  //   auth
-  //     .authorize({ email: email, password: password })
-  //     .then((res) => {
-  //       localStorage.setItem("jwt", res.token);
-  //       console.log(res.token);
-  //       console.log(res);
-  //       setLoggedIn(true);
-  //       setCurrentUser({ ...currentUser });
-  //     })
-  //     .then(() => {
-  //       history.push("/profile");
-  //       setTimeout(() => {
-  //         window.location.reload();
-  //       }, 10);
-  //     });
-  // };
 
   const handleAddItem = (values) => {
     const itemName = values.name;
@@ -381,7 +278,7 @@ function App() {
         handleCloseModal();
       })
       .catch((err) => {
-        console.log("an error has occured, please see error", err);
+        console.log("an error has occured, handleAddItem", err);
       })
       .finally(() => console.log("done"));
     console.log(values);
@@ -395,9 +292,19 @@ function App() {
     if (!username || !avatar) {
       return;
     }
-    auth.updateProfile({ name: username, avatar: avatar }, jwt).then((res) => {
-      console.log(res);
-    });
+    api
+      .updateProfile({ name: username, avatar: avatar }, jwt)
+      .then((res) => {
+        console.log(res);
+      })
+      .then(() => {
+        handleCloseModal();
+      })
+      .catch((e) => {
+        console.log("an error has occured, handleEditUser", e);
+      })
+      .finally(() => console.log("done"));
+    console.log(values);
   };
 
   // this is what you want to do with registration request and how to send it properly VVV
@@ -487,6 +394,7 @@ function App() {
             handleCloseModal={handleCloseModal}
             isOpen={activeModal === "register"}
             onClose={handleCloseModal}
+            alternateModalOpen={handleLoginModal}
           ></RegisterModal>
         )}
         {activeModal === "login" && (
@@ -495,6 +403,7 @@ function App() {
             isOpen={activeModal === "login"}
             onClose={handleCloseModal}
             handleLogin={handleLogin}
+            alternateModalOpen={handleRegisterModal}
           ></LoginModal>
         )}
         {activeModal === "create" && (

@@ -29,7 +29,7 @@ export const ItemModal = ({ selectedCard, onClose, onDelete }) => {
         <button
           type="button"
           onClick={onClose}
-          className="modal__close item-modal__close-button"
+          className="item-modal__close-button"
         ></button>
         <img
           className="item-modal__image"

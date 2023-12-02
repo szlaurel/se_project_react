@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import "./EditProfileModal.css";
 import { logDOM } from "@testing-library/react";
+import { useEffect } from "react";
 
 const EditProfileModal = ({ handleCloseModal, isOpen, handleEditUser }) => {
   /* -------------------------------------------------------------------------- */
@@ -21,16 +22,18 @@ const EditProfileModal = ({ handleCloseModal, isOpen, handleEditUser }) => {
   //     window.location.reload();
   //   }, 10);
 
+  useEffect(() => {
+    setName("");
+    setUrl("");
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     handleEditUser({ username: name, avatar: link });
     console.log({ username: name, avatar: link });
-    setName("");
-    setUrl("");
-    setTimeout(() => {
-      window.location.reload();
-    }, 10);
-    handleCloseModal();
+    // setTimeout(() => {
+    //   window.location.reload();
+    // }, 10);
   };
 
   return (
@@ -41,24 +44,30 @@ const EditProfileModal = ({ handleCloseModal, isOpen, handleEditUser }) => {
       isOpen={isOpen}
       onSubmit={handleSubmit}
     >
-      <label className="modal__label">Name *</label>
+      <label className="modal__label" htmlFor="name">
+        Name *
+      </label>
       <input
         name="name"
         className="modal__input"
         placeholder="Enter new Name Here"
         value={name}
         type="text"
+        id="name"
         onChange={(e) => {
           setName(e.target.value);
         }}
       />
-      <label className="modal__label">Avatar</label>
+      <label className="modal__label" htmlFor="avatar">
+        Avatar
+      </label>
       <input
         name="link"
         className="modal__input"
         placeholder="Enter new Avatar URL here"
         value={link}
         type="url"
+        id="avatar"
         onChange={(e) => {
           setUrl(e.target.value);
         }}
