@@ -90,11 +90,13 @@ function App() {
           console.log(e);
         });
     }
-  }, []);
+  }, [loggedIn]);
 
   const firstNameInitial = splitUserName[0] ? splitUserName[0][0] : "";
 
   console.log(firstNameInitial);
+
+  console.log(currentUser);
 
   /* -------------------------------------------------------------------------- */
   /*                             handle open modals                             */
@@ -225,6 +227,8 @@ function App() {
   // we just got done writing code for configuring the user authorization
   // when you get back and read this you need to "check the token" its in the task
 
+  // the problem is occuring here somewhere at handleLogin
+
   const handleLogin = (values) => {
     // debugger
     const email = values.email;
@@ -236,7 +240,7 @@ function App() {
     auth
       .authorize({ email: email, password: password })
       .then((res) => {
-        if (res == undefined) {
+        if (res === undefined) {
           return;
         }
         localStorage.setItem("jwt", res.token);
@@ -318,7 +322,6 @@ function App() {
   };
 
   const handleLogOut = () => {
-    debugger;
     localStorage.removeItem("jwt");
     if (loggedIn === true) {
       setLoggedIn(false);
