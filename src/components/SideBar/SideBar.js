@@ -13,9 +13,9 @@ const SideBar = ({ onEditModal, handleLogOut, firstNameInitial }) => {
 
   const onSubmitLogOut = () => {
     handleLogOut();
-    setTimeout(() => {
-      window.location.reload();
-    }, 10);
+    // setTimeout(() => {
+    //   window.location.reload();
+    // }, 10);
   };
 
   // console.log(userName, avatar);

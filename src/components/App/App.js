@@ -45,6 +45,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userData, setUserData] = useState({});
   const [splitUserName, setSplitUserName] = useState([]);
+  const [refresh, setRefresh] = useState(false);
 
   const history = useHistory();
 
@@ -77,7 +78,6 @@ function App() {
               avatar: res.data?.avatar,
               id: res.data?._id,
             };
-            setUserData(userData);
             setCurrentUser(userData);
             setLoggedIn(true);
             setSplitUserName(userData.username.split(""));
@@ -213,6 +213,9 @@ function App() {
       .then((data) => {
         console.log(data);
       })
+      .then(() => {
+        handleCloseModal();
+      })
       .catch((e) => {
         console.log("im in the catch for auth.register user");
         console.log(e);
@@ -237,8 +240,8 @@ function App() {
           return;
         }
         localStorage.setItem("jwt", res.token);
-        setLoggedIn(true);
         setCurrentUser({ ...currentUser });
+        setLoggedIn(true);
       })
       .then(() => {
         handleCloseModal();
@@ -315,10 +318,10 @@ function App() {
   };
 
   const handleLogOut = () => {
+    debugger;
     localStorage.removeItem("jwt");
     if (loggedIn === true) {
       setLoggedIn(false);
-      // history.push("/");
     }
   };
   // debugger;
@@ -384,6 +387,7 @@ function App() {
               onCardLike={handleLikeClick}
               handleLogOut={handleLogOut}
               firstNameInitial={firstNameInitial}
+              isLoggedIn={loggedIn}
             />
           </ProtectedRoute>
         </Switch>
@@ -432,4 +436,5 @@ function App() {
     </CurrentUserContext.Provider>
   );
 }
+
 export default App;
