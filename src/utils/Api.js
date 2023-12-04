@@ -82,7 +82,9 @@ class Api {
         "Content-Type": "application/json",
         authorization: `Bearer ${token}`,
       },
-    }).then((data) => data);
+    })
+      .then(this._checkResponse)
+      .then((data) => data);
   }
 }
 
