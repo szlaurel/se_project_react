@@ -45,7 +45,6 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userData, setUserData] = useState({});
   const [splitUserName, setSplitUserName] = useState([]);
-  const [refresh, setRefresh] = useState(false);
 
   const history = useHistory();
 

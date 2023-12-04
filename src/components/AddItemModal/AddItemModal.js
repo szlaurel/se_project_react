@@ -36,7 +36,9 @@ const AddItemModal = ({ handleCloseModal, isOpen, handleAddItem }) => {
       isOpen={isOpen}
       onSubmit={handleSubmit}
     >
-      <label className="modal__label">Name</label>
+      <label className="modal__label" htmlFor="name">
+        Name
+      </label>
       <input
         name="name"
         type="text"
@@ -44,16 +46,20 @@ const AddItemModal = ({ handleCloseModal, isOpen, handleAddItem }) => {
         maxLength="30"
         placeholder="Name"
         className="modal__input"
+        id="name"
         value={name}
         onChange={handleNameChange}
       />
       {/* <span className="modal__span">Please enter a Name</span> */}
-      <label className="modal__label">Image</label>
+      <label className="modal__label" htmlFor="image">
+        Image
+      </label>
       <input
         name="link"
         type="url"
         minLength="1"
         // maxLength="30"
+        id="image"
         placeholder="Image URL"
         className="modal__input"
         value={link}

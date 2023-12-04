@@ -28,12 +28,9 @@ const EditProfileModal = ({ handleCloseModal, isOpen, handleEditUser }) => {
   }, []);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     handleEditUser({ username: name, avatar: link });
     console.log({ username: name, avatar: link });
-    // setTimeout(() => {
-    //   window.location.reload();
-    // }, 10);
   };
 
   return (

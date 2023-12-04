@@ -59,7 +59,7 @@ export default ClothesSection;
 // const ClothesSection = ({ items, onSelectCard, onCreateModal }) => {
 //   const userValue = React.useContext(CurrentUserContext);
 //   const userId = userValue.userData.id;
-//   // const cardOwner = items.owner;
+//   // const cardOwner = items.owner0;
 
 //   console.log(userId);
 //   console.log(items);
