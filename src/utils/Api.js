@@ -1,10 +1,7 @@
-import { processServerRequest } from "./weatherApi";
-
 class Api {
-  constructor({ baseUrl, headers, processServerRequest }) {
+  constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
-    this._processServerRequest = processServerRequest;
   }
 
   _checkResponse(res) {
@@ -61,7 +58,7 @@ class Api {
       },
       body: JSON.stringify({ name, avatar }),
     })
-      .then(this._processServerRequest)
+      .then(this._checkResponse)
       .then((data) => data);
   }
   addCardLike(id, token) {
@@ -73,7 +70,7 @@ class Api {
         authorization: `Bearer ${token}`,
       },
     })
-      .then(this._processServerRequest)
+      .then(this._checkResponse)
       .then((data) => data);
   }
 
@@ -85,9 +82,7 @@ class Api {
         "Content-Type": "application/json",
         authorization: `Bearer ${token}`,
       },
-    })
-      .then(this._processServerRequest)
-      .then((data) => data);
+    }).then((data) => data);
   }
 }
 
@@ -100,7 +95,6 @@ const baseUrl = "http://localhost:3001";
 export const api = new Api({
   baseUrl: baseUrl,
   headers: { "Content-Type": "application/json" },
-  processServerRequest: processServerRequest,
 });
 
 // in the end i just decided to hardcode each of the requests that needed authorization bearer

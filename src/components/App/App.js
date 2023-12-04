@@ -45,6 +45,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userData, setUserData] = useState({});
   const [splitUserName, setSplitUserName] = useState([]);
+  const [refresh, setRefresh] = useState(false);
 
   const history = useHistory();
 
@@ -302,8 +303,11 @@ function App() {
       .updateProfile({ name: username, avatar: avatar }, jwt)
       .then((res) => {
         console.log(res);
-      })
-      .then(() => {
+        setCurrentUser({
+          ...currentUser,
+          username: res.name,
+          avatar: res.avatar,
+        });
         handleCloseModal();
       })
       .catch((e) => {
@@ -312,6 +316,8 @@ function App() {
       .finally(() => console.log("done"));
     console.log(values);
   };
+
+  console.log(currentUser);
 
   // this is what you want to do with registration request and how to send it properly VVV
 
@@ -356,6 +362,18 @@ function App() {
   }, []);
 
   console.log(items);
+
+  // useEffect(() => {
+  //   const userValue = { currentUser };
+  //   const userName = userValue.currentUser.username;
+  //   const avatar = userValue.currentUser.avatar;
+  //   console.log(userName, avatar);
+
+  //   if (!userName || !avatar) {
+  //     console.log("the values changed");
+  //     setRefresh(true);
+  //   } else return;
+  // }, [currentUser]);
 
   console.log(currentTemperatureUnit);
   return (
@@ -440,3 +458,31 @@ function App() {
 }
 
 export default App;
+
+/* -------------------------------------------------------------------------- */
+/*            Figure out how to make a useEffect with this i think?           */
+/* -------------------------------------------------------------------------- */
+
+// const handleEditUser = (values) => {
+//   const username = values.username;
+//   const avatar = values.avatar;
+//   const jwt = localStorage.getItem("jwt");
+
+//   if (!username || !avatar) {
+//     return;
+//   }
+//   api
+//     .updateProfile({ name: username, avatar: avatar }, jwt)
+//     .then((res) => {
+//       console.log(res);
+//     })
+//     .then(() => {
+//       setCurrentUser({ ...currentUser });
+//       handleCloseModal();
+//     })
+//     .catch((e) => {
+//       console.log("an error has occured, handleEditUser", e);
+//     })
+//     .finally(() => console.log("done"));
+//   console.log(values);
+// };

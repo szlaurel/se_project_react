@@ -3,8 +3,8 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useState } from "react";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import "./EditProfileModal.css";
-import { logDOM } from "@testing-library/react";
 import { useEffect } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 const EditProfileModal = ({ handleCloseModal, isOpen, handleEditUser }) => {
   /* -------------------------------------------------------------------------- */
@@ -18,17 +18,22 @@ const EditProfileModal = ({ handleCloseModal, isOpen, handleEditUser }) => {
   /*                    handle submit for edit profile modal                    */
   /* -------------------------------------------------------------------------- */
 
+  const userValue = React.useContext(CurrentUserContext);
+  const username = userValue.currentUser.username;
+  const avatar = userValue.currentUser.avatar;
+  // console.log({ user: username, avatar: avatar });
+
   //   const reloadPage = setTimeout(() => {
   //     window.location.reload();
   //   }, 10);
 
   useEffect(() => {
-    setName("");
-    setUrl("");
+    setName(username);
+    setUrl(avatar);
   }, []);
 
   const handleSubmit = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     handleEditUser({ username: name, avatar: link });
     console.log({ username: name, avatar: link });
   };
