@@ -88,7 +88,12 @@ class Api {
   }
 }
 
-const baseUrl = "http://localhost:3001";
+// const baseUrl = "http://localhost:3001";
+
+const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "wtwr.lozan.com"
+    : "http://localhost:3001";
 
 //this probably isnt right and i need to review more on how to properly define the token for the class api
 

@@ -1,5 +1,9 @@
 import { processServerRequest } from "./weatherApi";
-export const BASE_URL = "http://localhost:3001";
+// export const BASE_URL = "http://localhost:3001";
+export const BASE_URL =
+  process.env.NODE_ENV === "production"
+    ? "wtwr.lozan.com"
+    : "http://localhost:3001";
 
 /* -------------------------------------------------------------------------- */
 /*                             code for signing up                            */
