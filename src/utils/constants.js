@@ -71,6 +71,20 @@ export const weatherOptions = [
 /*                          Exports for weatherApi.js                         */
 /* -------------------------------------------------------------------------- */
 
+// const getLongAndLat = () => {
+//   if (navigator.geolocation) {
+//     navigator.geolocation.getCurrentPosition(function (position) {
+//       const latitude = position.coords.latitude;
+//       const longitude = position.coords.longitude;
+//       console.log(`Latitude: ${latitude}, Longitude ${longitude}`);
+//       return;
+//     });
+//   } else {
+//     console.log("Geolocation is not supported by this browser");
+//   }
+// };
+// console.log(getLongAndLat.latitude);
+
 export const APIkey = "544989dd091e1898f7c9947468dd5801";
 export const latitude = 34.53;
 export const longitude = -117.292763;
